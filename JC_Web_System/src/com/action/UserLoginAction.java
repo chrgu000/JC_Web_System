@@ -57,7 +57,7 @@ public class UserLoginAction extends ActionSupport {
     {
         this.mgr = mgr;
     }
-    public ActionManager getmgr()
+    public ActionManager getMgr()
     {
         return mgr;
     }

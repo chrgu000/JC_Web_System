@@ -22,5 +22,11 @@
         <property name="userPhoneNum" type="java.lang.String">
             <column name="user_phone_num" />
         </property>
+        <property name="userEmail" type="java.lang.String">
+            <column name="user_email" />
+        </property>
+        <property name="userType" type="java.lang.Integer">
+            <column name="user_type" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

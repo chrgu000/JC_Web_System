@@ -13,7 +13,8 @@ public class SysUsers implements java.io.Serializable {
 	private String userPwd;
 	private String userName;
 	private String userPhoneNum;
-
+	private String userEmail;
+	private Integer userType;
 	// Constructors
 
 	/** default constructor */
@@ -76,6 +77,22 @@ public class SysUsers implements java.io.Serializable {
 
 	public void setUserPhoneNum(String userPhoneNum) {
 		this.userPhoneNum = userPhoneNum;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
 	}
 
 }

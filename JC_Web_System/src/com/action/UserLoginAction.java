@@ -29,11 +29,15 @@ public class UserLoginAction extends ActionSupport {
 		
 		if (userId != null) {
 			//System.out.println("合法用户");
-			return "SUCCESS";
+			if(userId==1){
+				return "SuperADM";
+			}else{
+				return "normalADM";
+			}
 		} else {
 			//addActionError("用户名/密码不匹配");
 			//System.out.println("非法用户");
-			return "FAILURE";
+			return "error";
 		}
 	}
 

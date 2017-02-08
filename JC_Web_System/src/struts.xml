@@ -3,8 +3,9 @@
 <struts>
 	<package name="JC_Web_System" extends="struts-default">
 		<action name="userLogin" class="userLoginAction">
-			<result name="SUCCESS">/Pages/Success.jsp</result>
-			<result name="FAILURE">/Pages/Failure.jsp</result>
+			<result name="SuperADM">/Pages/superIndex.jsp</result>
+			<result name="normalADM">/Pages/index.jsp</result>
+			<result name="error">/Pages/error.jsp</result>
 		</action>
 	</package>
 </struts>    

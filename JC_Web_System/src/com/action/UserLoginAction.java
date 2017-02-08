@@ -19,7 +19,7 @@ public class UserLoginAction extends ActionSupport {
 	private String password;
 
 	public String execute() throws Exception {
-		System.out.println("点击登录执行该方法excute");
+		//System.out.println("点击登录执行该方法excute");
 		if(username.equals("") || username == null){
 			return "FAILURE";
 		}
@@ -28,11 +28,11 @@ public class UserLoginAction extends ActionSupport {
 		userId=mgr.validLogin(username, password);
 		
 		if (userId != null) {
-			System.out.println("合法用户");
+			//System.out.println("合法用户");
 			return "SUCCESS";
 		} else {
-			addActionError("用户名/密码不匹配");
-			System.out.println("非法用户");
+			//addActionError("用户名/密码不匹配");
+			//System.out.println("非法用户");
 			return "FAILURE";
 		}
 	}

@@ -17,6 +17,9 @@
 		</property>
 		<property name="username" value="sa"></property>
 		<property name="password" value="wuliming_@_@1315"></property>
+		
+		
+		
 	</bean>
 	
 	<!-- session意为 轻量级的类，创建了数据库访问的类实现 -->
@@ -29,14 +32,21 @@
 			<props>
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.SQLServerDialect
+					<!-- hibernate.show_sql=true --> <!-- 控制台输出sql语句 属性设置 -->
+				</prop>
+				<prop key="hibernate.show_sql">
+  					true
 				</prop>
 			</props>
+			
 		</property>
 		<property name="mappingResources">
 			<list>
 				<value>com/bean/SysUsers.hbm.xml</value></list>
-		</property></bean>
+		</property>
 		
+
+		</bean>
 		
 		
 		<!-- 用户添加的Bean -->
@@ -48,7 +58,7 @@
 			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
 		</bean>
 	
-		<bean id="sysUsersDAO" class="com.dao.impl.SysUsersDAOImpl">
+		<bean id="SysUsersDAO" class="com.dao.impl.SysUsersDAOImpl">
 			<property name="sessionFactory">
 				<ref local="sessionFactory" />
 			</property>

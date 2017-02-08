@@ -5,7 +5,8 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="userLoginAction" class="com.action.UserLoginAction"></bean>
+	<!-- <bean id="userLoginAction" class="com.action.UserLoginAction"></bean> -->
+	<!-- 数据库连接bean -->
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
@@ -17,6 +18,8 @@
 		<property name="username" value="sa"></property>
 		<property name="password" value="wuliming_@_@1315"></property>
 	</bean>
+	
+	<!-- session意为 轻量级的类，创建了数据库访问的类实现 -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">
@@ -37,7 +40,7 @@
 		
 		
 		<!-- 用户添加的Bean -->
-		<bean id="UserLoginAction" class="com.action.UserLoginAction">
+		<bean id="userLoginAction" class="com.action.UserLoginAction">
 			<property name="mgr" ref="mgr"></property>
 		</bean>
 		
@@ -52,4 +55,4 @@
 		</bean>
 		
 		
-		</beans>
+</beans>

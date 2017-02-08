@@ -19,12 +19,13 @@ public class UserLoginAction extends ActionSupport {
 	private String password;
 
 	public String execute() throws Exception {
-		System.out.println("点击登录执行该方法123");
+		System.out.println("点击登录执行该方法excute");
 		if(username.equals("") || username == null){
 			return "FAILURE";
 		}
 		
-		Integer userId = mgr.validLogin(username, password);
+		Integer userId =0;
+		userId=mgr.validLogin(username, password);
 		
 		if (userId != null) {
 			System.out.println("合法用户");

@@ -1,0 +1,8 @@
+github源代码地址：
+https://github.com/wulm/JC_Web_System.git
+账号密码：397774505@qq.com/qqpwd
+
+数据库连接和管理地址：
+zf16518905.iok.la:22536
+账号密码：sa/qqpwd
+

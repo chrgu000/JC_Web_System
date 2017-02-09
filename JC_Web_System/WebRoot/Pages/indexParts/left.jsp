@@ -140,10 +140,7 @@ a:visited {
 							</table>
 						</td>
 					</tr>
-					<tr>
-						<td height="39"
-							background="<%request.getContextPath();%>Pages/indexParts/images/main_37.gif">&nbsp;</td>
-					</tr>
+					
 				</table>
 			</td>
 		</tr>

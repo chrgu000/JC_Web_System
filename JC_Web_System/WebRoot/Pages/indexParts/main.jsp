@@ -21,13 +21,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
   </head>
   
-  <frameset rows="90,*,30" cols="*" framespacing="0" frameborder="no" border="0">
+  <%--<frameset rows="90,*,30" cols="*" framespacing="0" frameborder="no" border="0">
   <frame src="top.jsp" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" />
   <frame src="center.jsp" name="mainFrame" id="mainFrame" />
   <frame src="down.jsp" name="bottomFrame" scrolling="No" noresize="noresize" id="bottomFrame" />
 </frameset>
 <noframes>
   
+  --%>
   <body>
+  	<jsp:include page="top.jsp"></jsp:include>
+  	<jsp:include page="center.jsp"></jsp:include>
+  	<jsp:include page="down.jsp"></jsp:include>
+  	
   </body>
 </html>

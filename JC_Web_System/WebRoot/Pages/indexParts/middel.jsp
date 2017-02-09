@@ -58,9 +58,10 @@ document.all("frmTitle").style.display=""
     	<img src="<%request.getContextPath();%>Pages/indexParts/images/main_30.gif" name="img1" width=4 height=47 id=img1>
     </SPAN></td>
     <td align="center" valign="top">
+    <jsp:include page="right.jsp"></jsp:include>
     <%-- <iframe name="I2" height="100%" width="100%" border="0" frameborder="0" src="<%request.getContextPath();%>Pages/indexParts/right.jsp"> 
     浏览器不支持嵌入式框架，或被配置为不显示嵌入式框架。</iframe> --%>
-    	<jsp:include page="right.jsp"></jsp:include>
+    	
     </td>
   </tr>
 </table>

@@ -42,7 +42,7 @@ body {
   <body>
     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="d5d4d4" >
   <tr>
-    <td height="22" colspan="4" background="images/bg.gif" bgcolor="#FFFFFF" class="STYLE3"><div align="center">企业单位基本信息表</div></td>
+    <td height="22" colspan="4" background="<%request.getContextPath();%>Pages/indexParts/images/bg.gif" bgcolor="#FFFFFF" class="STYLE3"><div align="center">企业单位基本信息表</div></td>
   </tr>
   <tr>
     <td colspan="4" bgcolor="#FFFFFF" class="STYLE1"><table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -117,7 +117,8 @@ body {
         </tr>
       <tr>
         <td height="40" class="STYLE1">&nbsp;</td>
-        <td height="35" colspan="3" class="STYLE1"><img src="../images/syb.gif" width="62" height="21" /> <img src="../images/xyb.gif" width="62" height="21" /></td>
+        <td height="35" colspan="3" class="STYLE1"><img src="<%request.getContextPath();%>Pages/indexParts/images/syb.gif" width="62" height="21" /> 
+        <img src="<%request.getContextPath();%>Pages/indexParts/images/xyb.gif" width="62" height="21" /></td>
       </tr>
     </table></td>
   </tr>

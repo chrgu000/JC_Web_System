@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <td  nowrap="nowrap" class="STYLE1">当前登录用户：Admin 用户角色：管理员</td>
                       </tr>
                     </table></td>
-                    <td width="19"><img src="<%request.getContextPath();%>Pages/indexParts/images/main_09.gif" width="19" height="26" /></td>
+                  
                     <td width="352"><table width="46%" border="0" align="right" cellpadding="0" cellspacing="0">
                       <tr>
                         <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
@@ -66,27 +66,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               <td width="35"><div align="center" class="STYLE1"><a href="#">首页</a></div></td>
                             </tr>
                         </table></td>
-                        <td width="10"><img src="<%request.getContextPath();%>Pages/indexParts/images/main_11.gif" width="6" height="26" /></td>
-                        <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                              <td width="21"><div align="center"><img src="<%request.getContextPath();%>Pages/indexParts/images/top_3.gif" width="14" height="14" /></div></td>
-                              <td width="24"><div align="center" class="STYLE1"><a href="#">后退</a></div></td>
-                            </tr>
-                        </table></td>
-                        <td width="10"><img src="<%request.getContextPath();%>Pages/indexParts/images/main_11.gif" width="6" height="26" /></td>
-                        <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                              <td width="21"><div align="center"><img src="<%request.getContextPath();%>Pages/indexParts/images/top_4.gif" width="14" height="14" /></div></td>
-                              <td width="24"><div align="center" class="STYLE1"><a href="#">前进</a></div></td>
-                            </tr>
-                        </table></td>
-                        <td width="10"><img src="<%request.getContextPath();%>Pages/indexParts/images/main_11.gif" width="6" height="26" /></td>
-                        <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                              <td width="21"><div align="center"><img src="<%request.getContextPath();%>Pages/indexParts/images/top_5.gif" width="14" height="14" /></div></td>
-                              <td width="24"><div align="center" class="STYLE1"><a href="#">刷新</a></div></td>
-                            </tr>
-                        </table></td>
+                       
+                        
                         <td width="10"><img src="<%request.getContextPath();%>Pages/indexParts/images/main_11.gif" width="6" height="26" /></td>
                         <td width="102"><table width="102" border="0" cellspacing="0" cellpadding="0">
                             <tr>
@@ -98,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <td width="56"><table width="45" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="21"><div align="center"><img src="<%request.getContextPath();%>Pages/indexParts/images/top_7.gif" width="14" height="14" /></div></td>
-                              <td width="24"><div align="center" class="STYLE1"><a href="#">退出</a></div></td>
+                              <td width="40"><div align="center" class="STYLE1"><a href="#">退出</a></div></td>
                             </tr>
                         </table></td>
                         </tr>

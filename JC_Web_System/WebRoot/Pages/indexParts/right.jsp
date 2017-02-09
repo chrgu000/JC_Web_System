@@ -20,13 +20,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 
-  </head>
+  </head><%--
   <frameset rows="60,*" frameborder="no" border="0" framespacing="0">
-  <frame src="right_top.html" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" />
+  <frame src="right_top.jsp" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" />
   <frame src="tab/tab.html" name="mainFrame" id="mainFrame" />
 	</frameset>
 
+  --%>
   <body>
-    
+    <jsp:include page="right_top.jsp"></jsp:include>
+    <jsp:include page="tab/tab.jsp"></jsp:include>
   </body>
 </html>

@@ -1,5 +1,8 @@
 package com.action;
 
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.service.ActionManager;
 
@@ -18,27 +21,38 @@ public class UserLoginAction extends ActionSupport {
 	private String username;
 	private String password;
 
+	@Override
 	public String execute() throws Exception {
-		//System.out.println("点击登录执行该方法excute");
-		if(username.equals("") || username == null){
-			return "FAILURE";
-		}
-		
-		Integer userId =0;
-		userId=mgr.validLogin(username, password);
-		
+		// System.out.println("点击登录执行该方法excute");
+
+		Integer userId = mgr.validLogin(username, password);
+
 		if (userId != null) {
-			//System.out.println("合法用户");
-			if(userId==1){
-				return "SuperADM";
-			}else{
-				return "normalADM";
+
+			// 将用户信息存入session中保存
+			Map<String, Object> session = ActionContext.getContext()
+					.getSession();
+
+			if (session.containsKey("CURRENT_USER_ID")) {
+				session.remove("CURRENT_USER_ID");
+				session.remove("CURRENT_USER_NAME");
+				session.remove("CURRENT_USER_PWD");
+			}
+			session.put("CURRENT_USER_ID", userId);
+			session.put("CURRENT_USER_NAME", username);
+			session.put("CURRENT_USER_PWD", password);
+			if (userId == 1) {
+				session.put("CURRENT_USER_TYPE", "1");
+				return "LoginSuccess";
+			} else {
+				session.put("CURRENT_USER_TYPE", "0");
+				return "LoginSuccess";
 			}
 		} else {
-			//addActionError("用户名/密码不匹配");
-			//System.out.println("非法用户");
-			return "error";
+			addActionMessage("<script>alert('用户名不存在或密码错误！');</script>");
+			return "LoginFail";
 		}
+
 	}
 
 	public String getPassword() {

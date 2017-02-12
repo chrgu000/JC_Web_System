@@ -26,7 +26,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 
 	public SysUsers get(Integer id) {
 		// TODO Auto-generated method stub
-		return (SysUsers)getHibernateTemplate().get(SysUsers.class , id);
+		return getHibernateTemplate().get(SysUsers.class , id);
 	}
 
 	public void save(SysUsers user) {

@@ -3,7 +3,7 @@ package com.service.impl;
 import com.bean.SysUsers;
 import com.dao.SysUsersDAO;
 
-public class ActionManagerImpl implements com.service.ActionManager {
+public class UserLoginServiceImpl implements com.service.UserLoginService {
 
 	private SysUsersDAO sysUsersDAO;
 	

@@ -2,7 +2,7 @@ package com.service;
 
 import com.dao.SysUsersDAO;
 
-public interface ActionManager {
+public interface UserLoginService {
 
 	Integer validLogin(String username , String password);
 	public SysUsersDAO getSysUsersDAO();

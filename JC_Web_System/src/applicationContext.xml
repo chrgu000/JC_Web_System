@@ -49,12 +49,12 @@
 		</bean>
 		
 		
-		<!-- 用户添加的Bean -->
+		<!-- 用户登录的Bean -->
 		<bean id="userLoginAction" class="com.action.UserLoginAction">
-			<property name="mgr" ref="mgr"></property>
+			<property name="userLoginService" ref="userLoginService"></property>
 		</bean>
 		
-		<bean id="mgr" class="com.service.impl.ActionManagerImpl">
+		<bean id="userLoginService" class="com.service.impl.UserLoginServiceImpl">
 			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
 		</bean>
 	
@@ -64,5 +64,15 @@
 			</property>
 		</bean>
 		
+		
+		<!-- 用户管理的Bean -->
+		<!-- <bean id="userListAction" class="com.action.UserListAction">
+			<property name="userListService" ref="userListService"></property>
+		</bean>
+		
+		<bean id="userListService" class="com.service.impl.ActionManagerImpl">
+			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
+		</bean> -->
+	
 		
 </beans>

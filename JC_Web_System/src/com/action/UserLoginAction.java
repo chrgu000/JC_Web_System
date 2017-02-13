@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.service.ActionManager;
+import com.service.UserLoginService;
 
 public class UserLoginAction extends ActionSupport {
 	/*@Override
@@ -16,7 +16,7 @@ public class UserLoginAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 
-	protected ActionManager mgr;     //该对象采用 Spring 依赖注入
+	protected UserLoginService userLoginService;     //该对象采用 Spring 依赖注入
 	
 	private String username;
 	private String password;
@@ -25,7 +25,7 @@ public class UserLoginAction extends ActionSupport {
 	public String execute() throws Exception {
 		// System.out.println("点击登录执行该方法excute");
 
-		Integer userId = mgr.validLogin(username, password);
+		Integer userId = userLoginService.validLogin(username, password);
 
 		if (userId != null) {
 
@@ -72,12 +72,12 @@ public class UserLoginAction extends ActionSupport {
 	}
 	
 	//Spring依赖注入的对象必须有get、set方法。方法命名规则：get+变量名。为了便于记忆，变量名第一个字母可以大写。
-    public void setMgr(ActionManager mgr)    
+    public void setUserLoginService(UserLoginService userLoginService)    
     {
-        this.mgr = mgr;
+        this.userLoginService = userLoginService;
     }
-    public ActionManager getMgr()
+    public UserLoginService getUserLoginService()
     {
-        return mgr;
+        return userLoginService;
     }
 }

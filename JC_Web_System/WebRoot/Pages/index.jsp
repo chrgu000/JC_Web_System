@@ -58,9 +58,9 @@ $(function(){
 			<span class="icon-user"></span>用户管理
 		</h2>
 		<ul style="display:block">
-			<li><a href="##" target="right"><span
+			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>系统用户管理</a></li>
-			<li><a href="##" target="right"><span
+			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>权限管理</a>
 			</li>
 			
@@ -70,28 +70,28 @@ $(function(){
 			<span class="icon-pencil-square-o"></span>案卷管理
 		</h2>
 		<ul style="display:block">
-			<li><a href="##" target="right"><span
+			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>新建案卷</a></li>
-			<li><a href="##" target="right"><span
+			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>历史案卷</a></li>
 		</ul>
 		<h2>
 			<span class="icon-wrench"></span>系统管理
 		</h2>
 		<ul style="display:block">
-			<li><a href="##" target="right"><span
+			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>查看系统运行数据</a></li>
-			<li><a href="##" target="right"><span
+			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>关闭系统服务器</a></li>
 		</ul>
 		
 	</div>
 	<ul class="bread">
-		<li><a href="##" target="right" class="icon-home"> 回到首页</a>
+		<li><a href="Pages/error.jsp" target="right" class="icon-home"> 回到首页</a>
 		</li>
 	</ul>
 	<div class="admin">
-		<iframe scrolling="auto" rameborder="0" src="Pages/error.jsp" name="right"
+		<iframe scrolling="auto" rameborder="0" src="Pages/user_List.jsp" name="right"
 			width="100%" height="100%"></iframe> 
 			
 	</div>

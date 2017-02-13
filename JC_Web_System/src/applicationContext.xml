@@ -19,7 +19,6 @@
 		<property name="password" value="wuliming_@_@1315"></property>
 		
 		
-		
 	</bean>
 	
 	<!-- session意为 轻量级的类，创建了数据库访问的类实现 -->
@@ -52,6 +51,7 @@
 		<!-- 用户登录的Bean -->
 		<bean id="userLoginAction" class="com.action.UserLoginAction">
 			<property name="userLoginService" ref="userLoginService"></property>
+			<property name="userListService" ref="userListService"></property>
 		</bean>
 		
 		<bean id="userLoginService" class="com.service.impl.UserLoginServiceImpl">
@@ -66,13 +66,13 @@
 		
 		
 		<!-- 用户管理的Bean -->
-		<!-- <bean id="userListAction" class="com.action.UserListAction">
+		 <bean id="userListAction" class="com.action.UserListAction">
 			<property name="userListService" ref="userListService"></property>
 		</bean>
 		
-		<bean id="userListService" class="com.service.impl.ActionManagerImpl">
+		<bean id="userListService" class="com.service.impl.UserListServiceImpl">
 			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
-		</bean> -->
+		</bean>
 	
 		
 </beans>

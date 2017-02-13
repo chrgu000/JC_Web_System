@@ -5,6 +5,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
+<%@ page import ="com.bean.SysUsers"%>
+<%@ page import ="java.util.*"%>
+<% SysUsers currentUser=(SysUsers)session.getAttribute("currentUser"); %>
+<% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
+    
+
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -19,95 +25,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=basePath%>/Pages/common/js/pintuer.js"></script>
 </head>
 <body>
-<form method="post" action="" id="listform">
+<form name="userList" action="userList.action" method="post">
   <div class="panel admin-panel">
-    <div class="panel-head"><strong class="icon-reorder"> 系统用户列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="panel-head">
+    <strong class="icon-reorder"> 
+    <a href="userList.action">刷新用户列表</a>
+    
+    </strong> 
+    </div>
     <div class="padding border-bottom">
       <ul class="search" style="padding-left:10px;">
-        <li style="float:left;"> <a class="button border-main icon-plus-square-o" href="add.html"> 添加用户</a> </li>
+        <li style="float:left;"> <a class="button border-main icon-plus-square-o" 
+        	href="userList!gotoAddUser.action"> 添加用户</a> </li>
         <div style="float:right;">
-          
-         	 违法类型
-          <select name="s_isvouch" class="input" onchange="changesearch()"  style="width:60px; line-height:17px;display:inline-block">
+         	 用户类型
+          <select name="s_isvouch" class="input" onchange="changesearch()"  style="width:100px; line-height:17px;display:inline-block">
             <option value="">选择</option>
-            <option value="1">违法建房</option>
-            <option value="0">超面积建房</option>
-            <option value="0">破坏耕地</option>
-            <option value="0">养猪场</option>
-            <option value="0">仓库</option>
-            <option value="0">机砖厂</option>
+            <option value="1">管理员</option>
+            <option value="2">普通用户</option>
           </select>
           
-         
-        
-          <input type="text" placeholder="请输入关键字" name="keywords" class="input" style="width:200px; line-height:17px;display:inline-block" />
-          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+          <input type="text" placeholder="输入搜索关键字" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 
+          	搜索</a></li>
           </div>
       </ul>
     </div>
     <table class="table table-hover text-center">
       <tr>
-        <th width="100" style="text-align:left; padding-left:20px;">
+        <th>
         	用户ID</th>
         <th>登录名</th>
         <th>姓名</th>
         <th>手机号</th>
-        <th>姓名</th>
+        <th>电子邮箱</th>
         <th>用户类型</th>
+        <th>操作</th>
       </tr>
-      <volist name="list" id="vo">
+     <%for(SysUsers user:usersList){ %>
         <tr>
           <td style="text-align:left; padding-left:20px;">
           <input type="checkbox" name="id[]" value="" />
+          <%=user.getUserId()%>
           </td>
-          <td>测试用户</td>
-          <td><font color="#00CC99">小明</font></td>
-          <td>15866982256</td>
-          <td>超级管理员</td>
-          <td><div class="button-group"> <a class="button border-main" href="add.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span> 删除</a> </div></td>
+          <td><%=user.getUserLoginName() %></td>
+          <td><font color="#00CC99"><%=user.getUserName()%></font></td>
+          <td><%=user.getUserPhoneNum()%></td>
+          <td><%=user.getUserEmail()%></td>
+          <td><%=user.getUserType()==0?"管理员":"用户"%></td>
+          <td><div class="button-group"> 
+          <a class="button border-main" href="/Pages/user_AddEdit.html">
+          <span class="icon-edit"></span>
+          修改</a>
+          <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)">
+          <span class="icon-trash-o"></span> 
+          删除</a> </div></td>
         </tr>
-   		 <tr>
-          <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="id[]" value="" />
-          </td>
-          <td>测试用户</td>
-          <td><font color="#00CC99">小明</font></td>
-          <td>15866982256</td>
-          <td>超级管理员</td>
-          <td><div class="button-group"> <a class="button border-main" href="add.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span> 删除</a> </div></td>
-        </tr>
-        <tr>
-          <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="id[]" value="" />
-          </td>
-          <td>测试用户</td>
-          <td><font color="#00CC99">小明</font></td>
-          <td>15866982256</td>
-          <td>超级管理员</td>
-          <td><div class="button-group"> <a class="button border-main" href="add.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span> 删除</a> </div></td>
-        </tr>
-         <tr>
-          <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="id[]" value="" />
-          </td>
-          <td>测试用户</td>
-          <td><font color="#00CC99">小明</font></td>
-          <td>15866982256</td>
-          <td>超级管理员</td>
-          <td><div class="button-group"> <a class="button border-main" href="add.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span> 删除</a> </div></td>
-        </tr>
-        <tr>
-          <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="id[]" value="" />
-          </td>
-          <td>测试用户</td>
-          <td><font color="#00CC99">小明</font></td>
-          <td>15866982256</td>
-          <td>超级管理员</td>
-          <td><div class="button-group"> <a class="button border-main" href="add.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)"><span class="icon-trash-o"></span> 删除</a> </div></td>
-        </tr>
-         
-         
+   		<%} %>
         
       <tr>
         <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>

@@ -21,7 +21,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 
 	public List<SysUsers> findAll() {
 		// TODO Auto-generated method stub
-		return getHibernateTemplate().find("from test");
+		return getHibernateTemplate().find("from com.bean.SysUsers");
 	}
 
 	public SysUsers get(Integer id) {

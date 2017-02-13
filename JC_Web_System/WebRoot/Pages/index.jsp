@@ -6,11 +6,9 @@
 			+ path + "/";
 %>
 
+<%@ page import ="com.bean.SysUsers"%>
+<% SysUsers currentUser=(SysUsers)session.getAttribute("currentUser"); %>
 
-<%
-	//HttpSession s = request.getSession(); 
-	//String userId=s.getAttribute("CURRENT_USER_ID").toString();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +16,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
-<title>后台管理中心</title>
+<title>系统主页</title>
 <link rel="stylesheet"
 	href="<%=basePath%>/Pages/common/css/pintuer.css">
 <link rel="stylesheet" href="<%=basePath%>/Pages/common/css/admin.css">
@@ -42,18 +40,35 @@ $(function(){
 		<div class="logo margin-big-left fadein-top">
 			<h1>
 				<img src="<%=basePath%>/Pages/common/images/y.jpg"
-					class="radius-circle rotate-hover" height="50" alt="" />后台管理中心
+					class="radius-circle rotate-hover" height="50" alt="" />
+					后台管理中心
 			</h1>
 		</div>
+		
 		<div class="head-l">
-			<a class="button button-little bg-green" href="##"><span
-				class="icon-power-off"></span> 退出登录</a>
+			<a class="button button-little bg-green" href="##">
+			<span class="icon-power-off"></span> 退出登录</a>
 		</div>
+		
+		<div class="head-l">
+		<h3>当前登录：<font color="white"><%=currentUser.getUserName() %></font></h3></div>
 	</div>
 	<div class="leftnav">
 		<div class="leftnav-title">
 			<strong><span class="icon-list"></span>操作台</strong>
 		</div>
+		<h2>
+			<span class="icon-pencil-square-o"></span>案卷管理
+		</h2>
+		<ul style="display:block">
+			<li><a href="Pages/error.jsp" target="right"><span
+					class="icon-caret-right"></span>新建案卷</a></li>
+			<li><a href="Pages/error.jsp" target="right"><span
+					class="icon-caret-right"></span>历史案卷</a></li>
+		</ul>
+		
+		
+		<%if(currentUser.getUserType()==0){ %>
 		<h2>
 			<span class="icon-user"></span>用户管理
 		</h2>
@@ -65,16 +80,7 @@ $(function(){
 			</li>
 			
 		</ul>
-
-		<h2>
-			<span class="icon-pencil-square-o"></span>案卷管理
-		</h2>
-		<ul style="display:block">
-			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>新建案卷</a></li>
-			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>历史案卷</a></li>
-		</ul>
+			
 		<h2>
 			<span class="icon-wrench"></span>系统管理
 		</h2>
@@ -84,21 +90,21 @@ $(function(){
 			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>关闭系统服务器</a></li>
 		</ul>
-		
+		 <%} %>
 	</div>
 	<ul class="bread">
 		<li><a href="Pages/error.jsp" target="right" class="icon-home"> 回到首页</a>
 		</li>
 	</ul>
 	<div class="admin">
+	<%if(currentUser.getUserType()==0){ %>
 		<iframe scrolling="auto" rameborder="0" src="Pages/user_List.jsp" name="right"
 			width="100%" height="100%"></iframe> 
-			
+	<%}else{ %>
+		<iframe scrolling="auto" rameborder="0" src="Pages/error.jsp" name="right"
+			width="100%" height="100%"></iframe>
+	<%} %>
 	</div>
-	<div style="text-align:center;">
-		<p>
-			来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
-		</p>
-	</div>
+	
 </body>
 </html>

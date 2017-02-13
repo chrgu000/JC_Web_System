@@ -41,7 +41,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     
                 </div>
-                <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录"></div>
+                <div style="padding:30px;">
+                <input type="submit"  
+                class="button button-block bg-main text-big input-big" value="登录">
+                </div>
             </div>
             </form>          
         </div>

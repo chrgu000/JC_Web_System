@@ -1,9 +1,13 @@
 package com.action;
 
-import java.util.Map;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
-import com.opensymphony.xwork2.ActionContext;
+import org.apache.struts2.ServletActionContext;
+
+import com.bean.SysUsers;
 import com.opensymphony.xwork2.ActionSupport;
+import com.service.UserListService;
 import com.service.UserLoginService;
 
 public class UserLoginAction extends ActionSupport {
@@ -17,6 +21,7 @@ public class UserLoginAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	protected UserLoginService userLoginService;     //该对象采用 Spring 依赖注入
+	protected UserListService userListService; 
 	
 	private String username;
 	private String password;
@@ -24,32 +29,16 @@ public class UserLoginAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// System.out.println("点击登录执行该方法excute");
-
 		Integer userId = userLoginService.validLogin(username, password);
-
 		if (userId != null) {
 
-			// 将用户信息存入session中保存
-			Map<String, Object> session = ActionContext.getContext()
-					.getSession();
-
-			if (session.containsKey("CURRENT_USER_ID")) {
-				session.remove("CURRENT_USER_ID");
-				session.remove("CURRENT_USER_NAME");
-				session.remove("CURRENT_USER_PWD");
-			}
-			session.put("CURRENT_USER_ID", userId);
-			session.put("CURRENT_USER_NAME", username);
-			session.put("CURRENT_USER_PWD", password);
-			if (userId == 1) {
-				session.put("CURRENT_USER_TYPE", "1");
-				return "LoginSuccess";
-			} else {
-				session.put("CURRENT_USER_TYPE", "0");
-				return "LoginSuccess";
-			}
+			SysUsers user=userListService.getUserByID(userId);
+			List<SysUsers> usersList = userListService.getAllUsers();
+			HttpServletRequest request=ServletActionContext.getRequest();
+			request.getSession().setAttribute("currentUser", user);
+			request.getSession().setAttribute("usersList", usersList);
+			return "LoginSuccess";
 		} else {
-			addActionMessage("<script>alert('用户名不存在或密码错误！');</script>");
 			return "LoginFail";
 		}
 
@@ -80,4 +69,12 @@ public class UserLoginAction extends ActionSupport {
     {
         return userLoginService;
     }
+
+	public UserListService getUserListService() {
+		return userListService;
+	}
+
+	public void setUserListService(UserListService userListService) {
+		this.userListService = userListService;
+	}
 }

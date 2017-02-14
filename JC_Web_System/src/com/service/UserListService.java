@@ -11,4 +11,5 @@ public interface UserListService {
 	public void setSysUsersDAO(SysUsersDAO userDAO);
 	public List<SysUsers> getAllUsers();
 	public SysUsers getUserByID(int userID);
+	public List<SysUsers> getUsersByT_N(int userType, String userName);
 }

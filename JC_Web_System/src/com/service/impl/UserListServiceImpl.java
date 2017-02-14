@@ -44,5 +44,17 @@ public class UserListServiceImpl implements com.service.UserListService {
 		}
 		return null;
 	}
+
+	public List<SysUsers> getUsersByT_N(int userType, String userName) {
+		try {
+			List<SysUsers> AllUsers = sysUsersDAO.getByT_N(userType,userName);
+			if (AllUsers != null) {
+				return AllUsers;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
 	
 }

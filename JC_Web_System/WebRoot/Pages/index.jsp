@@ -62,10 +62,10 @@ $(function(){
 			<span class="icon-pencil-square-o"></span>案卷管理
 		</h2>
 		<ul style="display:block">
-			<li><a href="Pages/error.jsp" target="right"><span
+			<li><a href="Pages/file_List.jsp" target="right"><span
+					class="icon-caret-right"></span>案卷列表</a></li>
+			<li><a href="Pages/file_AddEdit.jsp" target="right"><span
 					class="icon-caret-right"></span>新建案卷</a></li>
-			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>历史案卷</a></li>
 		</ul>
 		
 		
@@ -78,7 +78,7 @@ $(function(){
 					class="icon-caret-right"></span>用户列表</a></li>
 			<li><a href="Pages/error.jsp" target="right"><span
 					class="icon-caret-right"></span>权限分配</a>
-			</li>
+			</li> 
 			
 		</ul>
 			
@@ -100,7 +100,7 @@ $(function(){
 		<a href="Pages/user_List.jsp" target="right" class="icon-home"> 
 		回到首页</a>
 		<%}else{ %>
-		<a href="Pages/error.jsp" target="right" class="icon-home"> 
+		<a href="userList.action" target="right" class="icon-home"> 
 		回到首页</a>
 		<%} %>
 		</li>

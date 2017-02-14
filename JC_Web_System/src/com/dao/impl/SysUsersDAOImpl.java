@@ -51,4 +51,13 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
         }
 		return null;
 	}
+
+	public List<SysUsers> getByT_N(int userType, String userName) {
+		// TODO Auto-generated method stub
+		if(userType==-1){
+			return getHibernateTemplate().find("from com.bean.SysUsers where userName like '%"+userName+"%'");
+		}else{
+			return getHibernateTemplate().find("from com.bean.SysUsers where userType="+userType+" and userName like '%"+userName+"%'");
+		}
+	}
 }

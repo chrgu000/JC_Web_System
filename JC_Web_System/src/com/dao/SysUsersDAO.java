@@ -48,4 +48,5 @@ public interface SysUsersDAO {
      * @return 对应的用户
      */ 
     SysUsers findSysUsersByNameAndPass(String SysUsersname , String password);
+	List<SysUsers> getByT_N(int userType, String userName);
 }

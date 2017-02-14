@@ -29,31 +29,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="panel admin-panel">
     <div class="panel-head">
     <strong class="icon-reorder"> 
-    <a href="userList.action">刷新用户列表</a>
+    <a href="userList.action">刷新案卷列表</a>
     
     </strong> 
     </div>
     <div class="padding border-bottom">
       <ul class="search" style="padding-left:10px;">
         <li style="float:left;"> <a class="button border-main icon-plus-square-o" 
-        	href="userList!gotoAddUser.action"> 添加用户</a> </li>
+        	href="userList!gotoAddUser.action"> 新建案卷</a> </li>
         <div style="float:right;">
-         	 用户类型
-          <select id="s_userType" name="s_userType" class="input"  style="width:100px; line-height:17px;display:inline-block">
-            <option value="-1">不限</option>
-            <option value="0">管理员</option>
-            <option value="1">普通用户</option>
+         	 案卷类型
+          <select name="s_isvouch" class="input" onchange="changesearch()"  style="width:100px; line-height:17px;display:inline-block">
+            <option value="">选择</option>
+            <option value="1">违法建房</option>
+            <option value="2">超面积建房</option>
+            <option value="3">破坏耕地</option>
+            <option value="4">养猪场</option>
+            <option value="5">机砖厂</option>
+            <option value="6">公司违建</option>
           </select>
           
-          <input type="text" id="i_userName" placeholder="输入姓名查询" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
-          <a class="button border-main icon-search" onclick="changesearch()" > 
+          <input type="text" placeholder="输入关键字查询案卷" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 
           	搜索</a></li>
           </div>
       </ul>
     </div>
     <table class="table table-hover text-center">
       <tr>
-        <th>请选择</th>
+        <th>
+        	用户ID</th>
         <th>登录名</th>
         <th>姓名</th>
         <th>手机号</th>
@@ -64,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <%for(SysUsers user:usersList){ %>
         <tr>
           <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="id[]"/>
+          <input type="checkbox" name="id[]" value="" />
           <%=user.getUserId()%>
           </td>
           <td><%=user.getUserLoginName() %></td>
@@ -72,21 +77,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><%=user.getUserPhoneNum()%></td>
           <td><%=user.getUserEmail()%></td>
           <td><%=user.getUserType()==0?"管理员":"用户"%></td>
-          <td><div class="button-group" > 
-          <a class="button border-main" id="user_edit" >
+          <td><div class="button-group"> 
+          <a class="button border-main" href="userList!gotoAddUser.action">
           <span class="icon-edit"></span>
-        	  修改</a>
-          <a class="button border-red" onclick="return del()">
+          修改</a>
+          <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)">
           <span class="icon-trash-o"></span> 
-         	 删除</a> </div></td>
+          删除</a> </div></td>
         </tr>
    		<%} %>
         
       <tr>
         <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
-         	 全选 </td>
+          全选 </td>
         <td colspan="7" style="text-align:left;padding-left:20px;">
-        <a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()">批量删除</a> 
+        <a class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()">批量删除</a> 
         
          </td>
       </tr>
@@ -100,34 +105,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 //搜索
 function changesearch(){	
-	
-	var  IuserName=document.getElementById("i_userName").value;
-	var  SuserType=document.getElementById("s_userType");
-	var index=SuserType.selectedIndex; 
-	var s_value=SuserType.options[index].value;
-	window.location.href="userList!searchUserByT_N.action?userType="+s_value+"&userName="+IuserName; 
+		
 }
 
-//单个编辑
-$(function(){
- $("[id=user_edit]").click(function(){
- 	var userId = $(this).parent().parent().parent().find("td:eq(0)").text();
-    
-    //alert(userType);
-    window.location.href = "userList!gotoEditUser.action?userId="
-    	+userId; 
-});
-
-});
-
-
 //单个删除
-function del(){
+function del(id,mid,iscid){
 	if(confirm("您确定要删除吗?")){
 		
 	}
 }
-
 
 //全选
 $("#checkall").click(function(){ 

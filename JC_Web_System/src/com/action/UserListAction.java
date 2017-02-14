@@ -23,17 +23,40 @@ public class UserListAction extends ActionSupport {
 	public String execute() throws Exception {
 		// System.out.println("点击登录执行该方法excute");
 
-		List<SysUsers> allUsers = userListService.getAllUsers();
+		List<SysUsers> usersList = userListService.getAllUsers();
 		HttpServletRequest request=ServletActionContext.getRequest();
 		
-		request.getSession().setAttribute("allUsers", allUsers);
+		request.getSession().setAttribute("usersList", usersList);
 		 
 		return "userList";
 
 	}
 	
 	public String gotoAddUser(){
+		//清除编辑缓存
+		HttpServletRequest request= ServletActionContext.getRequest();
+		request.getSession().removeAttribute("editUser");
 		return "userAdd";
+	}
+	
+	public String gotoEditUser() throws Exception{
+		HttpServletRequest request= ServletActionContext.getRequest();
+		int userId=Integer.parseInt(request.getParameter("userId").trim());
+		SysUsers editUser=userListService.getUserByID(userId);
+		request.getSession().setAttribute("editUser", editUser);
+		return "userEdit";
+	}
+	
+	public String searchUserByT_N() throws Exception {
+		HttpServletRequest request= ServletActionContext.getRequest();
+		int userType=Integer.parseInt(request.getParameter("userType"));
+		String userName=request.getParameter("userName");
+		
+		List<SysUsers> usersList = userListService.getUsersByT_N(userType,userName);
+		
+		request.getSession().setAttribute("usersList", usersList);
+		return "userList";
+		
 	}
 	
 	public String AddUser(){

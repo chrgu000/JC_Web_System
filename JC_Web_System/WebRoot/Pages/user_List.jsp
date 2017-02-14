@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <option value="2">普通用户</option>
           </select>
           
-          <input type="text" placeholder="输入搜索关键字" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
+          <input type="text" placeholder="输入姓名查询" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
           <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 
           	搜索</a></li>
           </div>
@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><%=user.getUserEmail()%></td>
           <td><%=user.getUserType()==0?"管理员":"用户"%></td>
           <td><div class="button-group"> 
-          <a class="button border-main" href="/Pages/user_AddEdit.html">
+          <a class="button border-main" href="userList!gotoAddUser.action">
           <span class="icon-edit"></span>
           修改</a>
           <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)">

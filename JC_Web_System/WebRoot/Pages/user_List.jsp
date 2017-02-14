@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <option value="2">普通用户</option>
           </select>
           
-          <input type="text" placeholder="输入搜索关键字" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
+          <input type="text" placeholder="输入姓名查询" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
           <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 
           	搜索</a></li>
           </div>

@@ -44,6 +44,16 @@ public class UserLoginAction extends ActionSupport {
 
 	}
 
+	public String logOut(){
+		
+		HttpServletRequest request=ServletActionContext.getRequest();
+		request.getSession().removeAttribute("currentUser");
+		//System.out.print("ÒÆ³ýsessionÍê³É");
+		request.getSession().removeAttribute("usersList");
+		return "LogOut";
+	}
+	
+	
 	public String getPassword() {
 		return password;
 	}

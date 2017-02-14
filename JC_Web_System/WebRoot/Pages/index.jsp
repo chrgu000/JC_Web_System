@@ -74,10 +74,10 @@ $(function(){
 			<span class="icon-user"></span>用户管理
 		</h2>
 		<ul style="display:block">
+			<li><a href="Pages/user_List.jsp" target="right"><span
+					class="icon-caret-right"></span>用户列表</a></li>
 			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>系统用户管理</a></li>
-			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>权限管理</a>
+					class="icon-caret-right"></span>权限分配</a>
 			</li>
 			
 		</ul>
@@ -87,14 +87,22 @@ $(function(){
 		</h2>
 		<ul style="display:block">
 			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>查看系统运行数据</a></li>
+					class="icon-caret-right"></span>运行数据</a></li>
 			<li><a href="Pages/error.jsp" target="right"><span
-					class="icon-caret-right"></span>关闭系统服务器</a></li>
+					class="icon-caret-right"></span>关闭系统</a></li>
 		</ul>
 		 <%} %>
 	</div>
+	<div >隐藏树控件按钮</div>
 	<ul class="bread">
-		<li><a href="Pages/error.jsp" target="right" class="icon-home"> 回到首页</a>
+		<li>
+		<%if(currentUser.getUserType()==0){ %>
+		<a href="Pages/user_List.jsp" target="right" class="icon-home"> 
+		回到首页</a>
+		<%}else{ %>
+		<a href="Pages/error.jsp" target="right" class="icon-home"> 
+		回到首页</a>
+		<%} %>
 		</li>
 	</ul>
 	<div class="admin">

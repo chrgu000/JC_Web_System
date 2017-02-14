@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><%=user.getUserEmail()%></td>
           <td><%=user.getUserType()==0?"管理员":"用户"%></td>
           <td><div class="button-group"> 
-          <a class="button border-main" href="/Pages/user_AddEdit.html">
+          <a class="button border-main" href="userList!gotoAddUser.action">
           <span class="icon-edit"></span>
           修改</a>
           <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1,1)">

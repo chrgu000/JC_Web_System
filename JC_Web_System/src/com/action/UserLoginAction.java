@@ -34,7 +34,9 @@ public class UserLoginAction extends ActionSupport {
 
 			SysUsers user=userListService.getUserByID(userId);
 			List<SysUsers> usersList = userListService.getAllUsers();
+			int pageCounts=userListService.getPageCounts();
 			HttpServletRequest request=ServletActionContext.getRequest();
+			request.getSession().setAttribute("pageCounts", pageCounts);
 			request.getSession().setAttribute("currentUser", user);
 			request.getSession().setAttribute("usersList", usersList);
 			return "LoginSuccess";

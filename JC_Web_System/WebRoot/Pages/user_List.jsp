@@ -9,8 +9,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ page import ="java.util.*"%>
 <% SysUsers currentUser=(SysUsers)session.getAttribute("currentUser"); %>
 <% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
-    
+<% int pageCounts =Integer.parseInt(String.valueOf(session.getAttribute("pageCounts"))); %>
 
+<%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -46,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </select>
           
           <input type="text" id="i_userName" placeholder="输入姓名查询" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
-          <a class="button border-main icon-search" onclick="changesearch()" > 
+          <a class="button border-main icon-search" id="u_search" href="javascript:void(0);"> 
           	搜索</a></li>
           </div>
       </ul>
@@ -64,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <%for(SysUsers user:usersList){ %>
         <tr>
           <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="id[]"/>
+          <input type="checkbox" name="chk_list" value="<%=user.getUserId()%>"/>
           <%=user.getUserId()%>
           </td>
           <td><%=user.getUserLoginName() %></td>
@@ -73,25 +74,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <td><%=user.getUserEmail()%></td>
           <td><%=user.getUserType()==0?"管理员":"用户"%></td>
           <td><div class="button-group" > 
-          <a class="button border-main" id="user_edit" >
+          <a class="button border-main" id="user_edit" href="javascript:void(0);">
           <span class="icon-edit"></span>
         	  修改</a>
-          <a class="button border-red" onclick="return del()">
+          <a class="button border-red" id="user_delete" href="javascript:void(0);">
           <span class="icon-trash-o"></span> 
          	 删除</a> </div></td>
         </tr>
    		<%} %>
         
       <tr>
-        <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
+        <td style="text-align:left; padding:19px 0;padding-left:20px;">
+        	<input type="checkbox" id="checkall"/>
          	 全选 </td>
         <td colspan="7" style="text-align:left;padding-left:20px;">
-        <a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()">批量删除</a> 
+        <a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()">
+        	批量删除</a> 
         
          </td>
       </tr>
       <tr>
-        <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+        <td colspan="8">
+        <div class="pagelist"> 
+        <a href="">上一页</a> 
+        <%for(int i=1;i<=pageCounts;i++){ %>
+        <span ><%=i %></span>
+        <%-- <span class="current"><%=i %></span> --%>
+        <%} %>
+        <a href="">下一页</a>
+        <a href="">尾页</a> </div></td>
       </tr>
     </table>
   </div>
@@ -99,14 +110,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 //搜索
-function changesearch(){	
-	
+//function changesearch(){	
+$("#u_search").click(function(){	
 	var  IuserName=document.getElementById("i_userName").value;
 	var  SuserType=document.getElementById("s_userType");
 	var index=SuserType.selectedIndex; 
 	var s_value=SuserType.options[index].value;
 	window.location.href="userList!searchUserByT_N.action?userType="+s_value+"&userName="+IuserName; 
-}
+});
+
 
 //单个编辑
 $(function(){
@@ -122,16 +134,23 @@ $(function(){
 
 
 //单个删除
-function del(){
+$(function(){
+ $("[id=user_delete]").click(function(){
 	if(confirm("您确定要删除吗?")){
+		var userId = $(this).parent().parent().parent().find("td:eq(0)").text();
+		
+		window.location.href = "userList!DeleteUser.action?userId="
+    	+userId;
 		
 	}
-}
+});
+
+});
 
 
 //全选
 $("#checkall").click(function(){ 
-  $("input[name='id[]']").each(function(){
+  $("input[name='chk_list']").each(function(){
 	  if (this.checked) {
 		  this.checked = false;
 	  }
@@ -143,21 +162,28 @@ $("#checkall").click(function(){
 
 //批量删除
 function DelSelect(){
-	var Checkbox=false;
-	 $("input[name='id[]']").each(function(){
-	  if (this.checked==true) {		
-		Checkbox=true;	
-	  }
-	});
-	if (Checkbox){
-		var t=confirm("您确认要删除选中的内容吗？");
-		if (t==false) return false;		
-		$("#listform").submit();		
-	}
-	else{
-		alert("请选择您要删除的内容!");
+	var deleteUserList=new Array();
+	var count=0;
+	if(confirm("您确认要删除选中的内容吗？")){
+    	$("input[name=chk_list]").each(function(i,d){
+    		if(d.checked){
+    			deleteUserList.push(d.value);
+    			//window.alert(d.value); 
+    			count++;
+    		}
+    	})
+    	if(count<=0){window.alert("请选择要删除的用户！"); return false;}
+    	//var usersIdsJson=window.JSON.stringify(deleteUserList);
+    	var str="";
+    	for(var i=0;i<count;i++){str=str+deleteUserList[i]+",";}
+    	//window.alert(str);
+    	//window.alert(usersIdsJson); 
+    	window.location.href = "userList!DeleteUserByIds.action?usersIds="
+    	+str;
+	}else{
 		return false;
 	}
+
 }
 </script>
 </body>

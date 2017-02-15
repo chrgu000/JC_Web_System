@@ -56,5 +56,20 @@ public class UserListServiceImpl implements com.service.UserListService {
 		}
 		return null;
 	}
+
+	public void DeleteUserById(int userId) {
+		// TODO Auto-generated method stub
+		try {
+			 sysUsersDAO.delete(userId);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public int getPageCounts() throws Exception {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.getPageCounts();
+	}
 	
 }

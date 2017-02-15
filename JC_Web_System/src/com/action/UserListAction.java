@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.bean.SysUsers;
@@ -22,12 +25,7 @@ public class UserListAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// System.out.println("点击登录执行该方法excute");
-
-		List<SysUsers> usersList = userListService.getAllUsers();
-		HttpServletRequest request=ServletActionContext.getRequest();
-		
-		request.getSession().setAttribute("usersList", usersList);
-		 
+		updateUserList();
 		return "userList";
 
 	}
@@ -57,6 +55,36 @@ public class UserListAction extends ActionSupport {
 		request.getSession().setAttribute("usersList", usersList);
 		return "userList";
 		
+	}
+	
+	public String DeleteUser() throws Exception {
+		HttpServletRequest request= ServletActionContext.getRequest();
+		int userId=Integer.parseInt(request.getParameter("userId").trim());
+		userListService.DeleteUserById(userId);
+		updateUserList();
+		return "userList";
+	}
+	
+	public String DeleteUserByIds() throws Exception {
+		HttpServletRequest request= ServletActionContext.getRequest();
+		String ids=request.getParameter("usersIds");
+		String[] sourceArr=ids.split(",");
+		for(int i=0;i<sourceArr.length;i++){
+			//System.out.print(sourceArr[i]+"-----");
+			//循环删除用户id数组
+			userListService.DeleteUserById(Integer.parseInt(sourceArr[i]));
+		}
+		updateUserList();
+		return "userList";
+	}
+	
+	
+	public void updateUserList(){
+		//刷新用户列表页面
+		List<SysUsers> usersList = userListService.getAllUsers();
+		HttpServletRequest request=ServletActionContext.getRequest();
+		
+		request.getSession().setAttribute("usersList", usersList);
 	}
 	
 	public String AddUser(){

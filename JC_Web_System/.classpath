@@ -56,5 +56,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xapool.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.apache.commons.lang-2.4.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sqljdbc4-3.0.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-taglib-0.4.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

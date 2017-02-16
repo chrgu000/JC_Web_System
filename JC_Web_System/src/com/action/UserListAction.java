@@ -81,9 +81,11 @@ public class UserListAction extends ActionSupport {
 	
 	public void updateUserList(){
 		//刷新用户列表页面
-		List<SysUsers> usersList = userListService.getAllUsers();
-		HttpServletRequest request=ServletActionContext.getRequest();
+		int pageCounts=userListService.getPageCounts();//获得数据页面总数
 		
+		List<SysUsers> usersList = userListService.getByPage(1);
+		HttpServletRequest request=ServletActionContext.getRequest();
+		request.getSession().setAttribute("pageCounts", pageCounts);
 		request.getSession().setAttribute("usersList", usersList);
 	}
 	

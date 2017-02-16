@@ -13,5 +13,6 @@ public interface UserListService {
 	public SysUsers getUserByID(int userID);
 	public List<SysUsers> getUsersByT_N(int userType, String userName);
 	public void DeleteUserById(int userId);
-	public int getPageCounts() throws Exception;
+	public int getPageCounts();
+	public List<SysUsers> getByPage(int i);
 }

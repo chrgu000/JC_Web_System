@@ -1,4 +1,4 @@
-package com.publicMethos;
+package com.publicMethos.impl;
 
 import atg.taglib.json.util.JSONArray;
 import atg.taglib.json.util.JSONException;

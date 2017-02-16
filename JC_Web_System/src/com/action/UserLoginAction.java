@@ -33,7 +33,7 @@ public class UserLoginAction extends ActionSupport {
 		if (userId != null) {
 
 			SysUsers user=userListService.getUserByID(userId);
-			List<SysUsers> usersList = userListService.getAllUsers();
+			List<SysUsers> usersList = userListService.getByPage(1);
 			int pageCounts=userListService.getPageCounts();
 			HttpServletRequest request=ServletActionContext.getRequest();
 			request.getSession().setAttribute("pageCounts", pageCounts);

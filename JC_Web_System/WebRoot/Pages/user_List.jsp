@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%@ page import ="com.bean.SysUsers"%>
 <%@ page import ="java.util.*"%>
-<% SysUsers currentUser=(SysUsers)session.getAttribute("currentUser"); %>
+
 <% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
 <% int pageCounts =Integer.parseInt(String.valueOf(session.getAttribute("pageCounts"))); %>
 

@@ -7,6 +7,8 @@ import com.dao.SysUsersDAO;
 
 public class UserListServiceImpl implements com.service.UserListService {
 
+	
+	
 	private SysUsersDAO sysUsersDAO;
 	
 	public SysUsersDAO getSysUsersDAO() {
@@ -67,9 +69,29 @@ public class UserListServiceImpl implements com.service.UserListService {
 		}
 	}
 
-	public int getPageCounts() throws Exception {
+	public int getPageCounts(){
 		// TODO Auto-generated method stub
 		return sysUsersDAO.getPageCounts();
+	}
+
+	public List<SysUsers> getByPage(int i) {
+		// TODO Auto-generated method stub
+		
+		/*int min=pageLinesNum*(i-1);
+		int max=pageLinesNum*i+1;
+		String sql="select * from (select row_number()over" +
+				"(order by user_id)rownumber,* from " +
+				"[JC_Web_System_DB].[dbo].[Sys_Users])a " +
+				"where rownumber>"+min+" and rownumber<" +max;
+		*/
+		
+		try {
+			return sysUsersDAO.getByPage(i);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

@@ -49,5 +49,6 @@ public interface SysUsersDAO {
      */ 
     SysUsers findSysUsersByNameAndPass(String SysUsersname , String password);
 	List<SysUsers> getByT_N(int userType, String userName);
-	int getPageCounts()  throws Exception;
+	int getPageCounts();
+	List<SysUsers> getByPage(int i);
 }

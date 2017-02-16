@@ -36,6 +36,12 @@
 				<prop key="hibernate.show_sql">
   					true
 				</prop>
+				<!-- <prop key="hibernate.current_session_context_class">
+					thread
+				</prop>
+				 <prop key="hibernate.transaction.factory_class"> 
+    				org.hibernate.transaction.JDBCTransactionFactory 
+				</prop> -->
 			</props>
 			
 		</property>
@@ -43,8 +49,6 @@
 			<list>
 				<value>com/bean/SysUsers.hbm.xml</value></list>
 		</property>
-		
-
 		</bean>
 		
 		
@@ -62,7 +66,16 @@
 			<property name="sessionFactory">
 				<ref local="sessionFactory" />
 			</property>
+			<property name="sqlUtil" ref="SqlUtil"></property>
 		</bean>
+		
+		<bean id="SqlUtil" class="com.publicMethos.impl.SqlUtilImpl" >
+			<property name="sessionFactory">
+				<ref local="sessionFactory" />
+			</property>
+		</bean>
+		<!-- 注入sql执行原生sql语句的类 -->
+		<!-- <bean id="sqlManager" class="com.publicMethos.SQLManager"/> -->
 		
 		
 		<!-- 用户管理的Bean -->

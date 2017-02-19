@@ -8,8 +8,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ page import ="com.bean.SysUsers"%>
 <%@ page import ="java.util.*"%>
 
-<% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
-<% int pageCounts =Integer.parseInt(String.valueOf(session.getAttribute("pageCounts"))); %>
 
 <%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>
 <!DOCTYPE html>
@@ -24,6 +22,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="<%=basePath%>/Pages/common/css/admin.css">
 <script src="<%=basePath%>/Pages/common/js/jquery.js"></script>
 <script src="<%=basePath%>/Pages/common/js/pintuer.js"></script>
+<script type="text/javascript">
+//页面加载时执行
+$(document).ready(function(){
+
+<% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
+<% int pageCounts =Integer.parseInt(String.valueOf(session.getAttribute("pageCounts"))); %>
+<% int pageCurrent =Integer.parseInt(String.valueOf(session.getAttribute("pageCurrent"))); %>
+
+	$(".pagelist").children().each(function(){
+		//alert("<%=pageCurrent%>");
+		if(($(this).text())=="<%=pageCurrent%>"){
+			$(this).addClass("current");
+			$(this).removeAttr("href")
+		}
+  	});
+	
+}); 
+</script>
 </head>
 <body>
 <form name="userList" action="userList.action" method="post">
@@ -95,19 +111,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </tr>
       <tr>
         <td colspan="8">
-        <div class="pagelist"> 
-        <a href="">上一页</a> 
+        <div class="pagelist">页码：
         <%for(int i=1;i<=pageCounts;i++){ %>
-        <span ><%=i %></span>
+        <a href="" id="pageNum"><%=i %></a>
         <%-- <span class="current"><%=i %></span> --%>
         <%} %>
-        <a href="">下一页</a>
-        <a href="">尾页</a> </div></td>
+        </div></td>
       </tr>
     </table>
   </div>
 </form>
 <script type="text/javascript">
+
+
+
 
 //搜索
 //function changesearch(){	
@@ -128,6 +145,18 @@ $(function(){
     //alert(userType);
     window.location.href = "userList!gotoEditUser.action?userId="
     	+userId; 
+});
+
+});
+
+
+//点击页码
+$(function(){
+ $("[id=pageNum]").click(function(){
+ 	var pageNum = $(this).text();
+    //alert(pageNum);
+    window.location.href = "userList!findPage.action?pageNum="
+    	+pageNum; 
 });
 
 });

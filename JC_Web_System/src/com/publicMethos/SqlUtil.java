@@ -6,7 +6,7 @@ public interface SqlUtil {
 	
 	//public List<Object[]> queryHqlBySession(String hql, int n);
 
-	public <T> List<T> queryHqlBySession(String hql, T bean);
+	public <T> List<T> queryHqlListBySession(String hql, T bean);
 
 	public Object queryHqlBySession(String hql);
 

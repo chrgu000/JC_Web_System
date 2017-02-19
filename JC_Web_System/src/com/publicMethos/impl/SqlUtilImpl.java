@@ -45,7 +45,7 @@ public class SqlUtilImpl extends HibernateDaoSupport implements   SqlUtil{
 		 执行hql/sql查询语句，将数据返回bean中，bean的name和sql中as的name相同，自动注入
 		 */
 		@SuppressWarnings("unchecked")
-		public <T> List<T> queryHqlBySession(String sql, T bean) {
+		public <T> List<T> queryHqlListBySession(String sql, T bean) {
 			Session session=getHibernateTemplate().getSessionFactory().openSession();
 			SQLQuery query=session.createSQLQuery(sql).addEntity(bean.getClass());
 			List<T> result = query.list();
@@ -56,7 +56,7 @@ public class SqlUtilImpl extends HibernateDaoSupport implements   SqlUtil{
 		public int queryHqlPagesNum(String sql) {
 			Session session=getHibernateTemplate().getSessionFactory().openSession();
 			SQLQuery query=session.createSQLQuery(sql);
-			int result = Integer.parseInt((String) query.list().get(0));
+			int result = (Integer) query.list().get(0);
 			session.close();
 			return result;
 		}

@@ -17,7 +17,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 
 	@Resource SessionFactory sessionFactory;
 	
-	public static final int pageLinesNum=8;//定义每个页面显示的列表行数
+	public static final int pageLinesNum=1;//定义每个页面显示的列表行数
 	
 	private SqlUtil sqlUtil;
 	
@@ -91,10 +91,12 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 				"[JC_Web_System_DB].[dbo].[Sys_Users])a " +
 				"where rownumber>"+min+" and rownumber<" +max;
 		
-		Session session=getHibernateTemplate().getSessionFactory().openSession();//打开新的session查询hql
-		SQLQuery query=session.createSQLQuery(sql).addEntity(SysUsers.class);
-		List<SysUsers> list = query.list();
-		session.close();
+		//Session session=getHibernateTemplate().getSessionFactory().openSession();//打开新的session查询hql
+		//SQLQuery query=session.createSQLQuery(sql).addEntity(SysUsers.class);
+		//List<SysUsers> list = query.list();
+		//session.close();
+		List<SysUsers> list=(List<SysUsers>) sqlUtil.queryHqlListBySession(sql,new SysUsers() );
+		
 		return list;
 	}
 	
@@ -114,9 +116,9 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 		}else{
 			sql+=" and user_type="+userType+" and user_name like '%"+userName+"%'";
 		}
-		//SQLManager sqlManager=(SQLManager)SqlUtil.getBean("sqlManager");
-		//List<SysUsers> list=(List<SysUsers>) sqlManager.queryHqlBySession(sql);
-		return null;//list;
+		
+		List<SysUsers> list=(List<SysUsers>) sqlUtil.queryHqlBySession(sql);
+		return list;
 	}
 	
 	//获取查询页面总量。。未测试
@@ -124,7 +126,6 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 		String sql="";
 		sql="select count(*) from " +
 				"[JC_Web_System_DB].[dbo].[Sys_Users] ";
-		//SQLManager sqlManager=(SQLManager)SqlUtil.getBean("sqlManager");
 		return (int)Math.ceil((double)sqlUtil.queryHqlPagesNum(sql)/pageLinesNum);//通过依赖注入执行hql语句
 	}
 	
@@ -139,7 +140,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 				"user_name like '%"+userName+"%'";
 		}
 		//SQLManager sqlManager=(SQLManager)SqlUtil.getBean("sqlManager");
-		return 0;//(int)Math.ceil((double)sqlManager.queryHqlPagesNum(sql)/pageLinesNum);
+		return (int)Math.ceil((double)sqlUtil.queryHqlPagesNum(sql)/pageLinesNum);//通过依赖注入执行hql语句
 	}
 	
 	

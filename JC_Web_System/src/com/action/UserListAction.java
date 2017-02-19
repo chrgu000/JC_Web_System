@@ -45,6 +45,17 @@ public class UserListAction extends ActionSupport {
 		return "userEdit";
 	}
 	
+	
+	//findPage
+	public String findPage() throws Exception{
+		HttpServletRequest request= ServletActionContext.getRequest();
+		int pageNum=Integer.parseInt(request.getParameter("pageNum").trim());
+		List<SysUsers> usersList=userListService.getByPage(pageNum);
+		request.getSession().setAttribute("usersList", usersList);
+		request.getSession().setAttribute("pageCurrent", pageNum);
+		return "userList";
+	}
+	
 	public String searchUserByT_N() throws Exception {
 		HttpServletRequest request= ServletActionContext.getRequest();
 		int userType=Integer.parseInt(request.getParameter("userType"));
@@ -82,11 +93,12 @@ public class UserListAction extends ActionSupport {
 	public void updateUserList(){
 		//刷新用户列表页面
 		int pageCounts=userListService.getPageCounts();//获得数据页面总数
-		
-		List<SysUsers> usersList = userListService.getByPage(1);
+		int pageCurrent=1;
+		List<SysUsers> usersList = userListService.getByPage(pageCurrent);
 		HttpServletRequest request=ServletActionContext.getRequest();
 		request.getSession().setAttribute("pageCounts", pageCounts);
 		request.getSession().setAttribute("usersList", usersList);
+		request.getSession().setAttribute("pageCurrent", pageCurrent);
 	}
 	
 	public String AddUser(){

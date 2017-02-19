@@ -39,6 +39,7 @@ public class UserLoginAction extends ActionSupport {
 			request.getSession().setAttribute("pageCounts", pageCounts);
 			request.getSession().setAttribute("currentUser", user);
 			request.getSession().setAttribute("usersList", usersList);
+			request.getSession().setAttribute("pageCurrent", 1);
 			return "LoginSuccess";
 		} else {
 			return "LoginFail";

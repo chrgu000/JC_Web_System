@@ -8,9 +8,9 @@ import org.apache.struts2.ServletActionContext;
 import com.bean.SysUsers;
 import com.opensymphony.xwork2.ActionSupport;
 import com.service.UserListService;
-import com.service.UserLoginService;
+import com.service.IUserService;
 
-public class UserLoginAction extends ActionSupport {
+public class UserLoginAction_bak extends ActionSupport {
 	/*@Override
 	public String execute() throws Exception {
 		System.out.println("点击登录执行该方法");
@@ -20,7 +20,7 @@ public class UserLoginAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 
-	protected UserLoginService userLoginService;     //该对象采用 Spring 依赖注入
+	protected IUserService userLoginService;     //该对象采用 Spring 依赖注入
 	protected UserListService userListService; 
 	
 	private String username;
@@ -37,9 +37,10 @@ public class UserLoginAction extends ActionSupport {
 			int pageCounts=userListService.getPageCounts();
 			HttpServletRequest request=ServletActionContext.getRequest();
 			request.getSession().setAttribute("pageCounts", pageCounts);
+			request.getSession().setAttribute("pageCurrent", 1);
 			request.getSession().setAttribute("currentUser", user);
 			request.getSession().setAttribute("usersList", usersList);
-			request.getSession().setAttribute("pageCurrent", 1);
+			
 			return "LoginSuccess";
 		} else {
 			return "LoginFail";
@@ -74,11 +75,11 @@ public class UserLoginAction extends ActionSupport {
 	}
 	
 	//Spring依赖注入的对象必须有get、set方法。方法命名规则：get+变量名。为了便于记忆，变量名第一个字母可以大写。
-    public void setUserLoginService(UserLoginService userLoginService)    
+    public void setUserLoginService(IUserService userLoginService)    
     {
         this.userLoginService = userLoginService;
     }
-    public UserLoginService getUserLoginService()
+    public IUserService getUserLoginService()
     {
         return userLoginService;
     }

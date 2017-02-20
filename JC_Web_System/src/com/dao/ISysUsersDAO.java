@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.bean.SysUsers;
 
-public interface SysUsersDAO {
+public interface ISysUsersDAO {
 
 	/**
      * 根据id查找用户
@@ -51,4 +51,9 @@ public interface SysUsersDAO {
 	List<SysUsers> getByT_N(int userType, String userName);
 	int getPageCounts();
 	List<SysUsers> getByPage(int i);
+	
+	
+	public List queryForPage(final String hql, final int offset,final int length);  
+	public int getAllRowCount(String hql); 
+	
 }

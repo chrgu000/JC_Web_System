@@ -1,23 +1,28 @@
 package com.dao.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.bean.SysUsers;
-import com.dao.SysUsersDAO;
+import com.dao.BaseDao;
+import com.dao.ISysUsersDAO;
 import com.publicMethos.SqlUtil;
 
-public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO {
+public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO {
 
 	@Resource SessionFactory sessionFactory;
 	
-	public static final int pageLinesNum=1;//定义每个页面显示的列表行数
+	public static final int pageLinesNum=3;//定义每个页面显示的列表行数
 	
 	private SqlUtil sqlUtil;
 	
@@ -152,6 +157,29 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements SysUsersDAO 
 		}else{
 			return getHibernateTemplate().find("from com.bean.SysUsers where userType="+userType+" and userName like '%"+userName+"%'");
 		}
+	}
+
+	public List queryForPage(final String hql, final int offset, final int length) {
+		// TODO Auto-generated method stub
+		List list = super.getHibernateTemplate().executeFind(new HibernateCallback() {  
+            public Object doInHibernate(Session session)  
+                    throws HibernateException, SQLException {  
+                Query query = session.createQuery(hql);  
+                query.setFirstResult(offset);  
+                query.setMaxResults(length);  
+                List list = query.list();  
+                return list;  
+  
+            }
+        });  
+        return list;  
+	}
+	
+	
+
+	public int getAllRowCount(String hql) {
+		// TODO Auto-generated method stub
+		return getHibernateTemplate().find(hql).size(); 
 	}
 
 }

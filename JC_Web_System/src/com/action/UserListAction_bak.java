@@ -9,15 +9,13 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.bean.PageBean;
 import com.bean.SysUsers;
 import com.opensymphony.xwork2.ActionSupport;
 import com.service.UserListService;
 
-public class UserListAction extends ActionSupport {
+public class UserListAction_bak extends ActionSupport {
 	
-	private int page; // 第几页     
-	private PageBean pageBean; // 包含分布信息的bean  
+	
 	
 	private static final long serialVersionUID = 1L;
 
@@ -27,10 +25,8 @@ public class UserListAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// System.out.println("点击登录执行该方法excute");
-		//updateUserList();
-		this.setPage(1);
-		
-		return this.pager();
+		updateUserList();
+		return "userList";
 
 	}
 	
@@ -115,28 +111,4 @@ public class UserListAction extends ActionSupport {
     {
         return userListService;
     }
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public PageBean getPageBean() {
-		return pageBean;
-	}
-
-	public void setPageBean(PageBean pageBean) {
-		this.pageBean = pageBean;
-	}
-	
-	
-	public String pager(){  
-	    //分页的pageBean,参数pageSize表示每页显示记录数,page为当前页         
-	    this.pageBean = userListService.queryForPage( page);        
-	    return "userList";  
-	} 
-	
 }

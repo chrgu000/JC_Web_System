@@ -13,12 +13,12 @@
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
 		</property>
 		<property name="url"
-			value="jdbc:sqlserver://SC-201702052142\SQLSERVER_1">
-			<!-- value="jdbc:sqlserver://zf16518905.iok.la:22536"> -->
+			
+			value="jdbc:sqlserver://zf16518905.iok.la:22536">
 		</property>
 		<property name="username" value="sa"></property>
-		<!-- <property name="password" value="wuliming_@_@1315"> -->
-		<property name="password" value="wuliming110">
+		<property name="password" value="wuliming_@_@1315">
+		<!-- <property name="password" value="wuliming110"> -->
 		</property>
 		
 		
@@ -56,12 +56,12 @@
 		
 		
 		<!-- 用户登录的Bean -->
-		<bean id="userLoginAction" class="com.action.UserLoginAction">
-			<property name="userLoginService" ref="userLoginService"></property>
-			<property name="userListService" ref="userListService"></property>
+		<bean id="userAction" class="com.action.UserAction">
+			<property name="userService" ref="userService"></property>
+			
 		</bean>
 		
-		<bean id="userLoginService" class="com.service.impl.UserLoginServiceImpl">
+		<bean id="userService" class="com.service.impl.UserServiceImpl">
 			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
 		</bean>
 	
@@ -82,13 +82,13 @@
 		
 		
 		<!-- 用户管理的Bean -->
-		 <bean id="userListAction" class="com.action.UserListAction">
+		 <!-- <bean id="userListAction" class="com.action.UserListAction">
 			<property name="userListService" ref="userListService"></property>
 		</bean>
 		
 		<bean id="userListService" class="com.service.impl.UserListServiceImpl">
 			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
-		</bean>
+		</bean> -->
 	
 		
 </beans>

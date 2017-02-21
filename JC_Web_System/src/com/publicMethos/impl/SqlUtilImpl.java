@@ -1,6 +1,10 @@
 package com.publicMethos.impl;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -9,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;  
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.bean.PageBean;
 import com.publicMethos.SqlUtil;
   
 public class SqlUtilImpl extends HibernateDaoSupport implements   SqlUtil{  
@@ -47,6 +52,28 @@ public class SqlUtilImpl extends HibernateDaoSupport implements   SqlUtil{
 		@SuppressWarnings("unchecked")
 		public <T> List<T> queryHqlListBySession(String sql, T bean) {
 			Session session=getHibernateTemplate().getSessionFactory().openSession();
+			SQLQuery query=session.createSQLQuery(sql).addEntity(bean.getClass());
+			List<T> result = query.list();
+			session.close();
+			return result;
+		}
+		
+		
+		//public <T> PageBean<T> queryForPage(int pageCurrent){
+			
+			
+		//}
+		
+		public <T> List<T> queryHqlListBySession(String DB_table_name, HashMap<String,String> conditionList,T bean) {
+			Session session=getHibernateTemplate().getSessionFactory().openSession();
+			String conditionStr=" where 1=1 and ";
+			Iterator<Entry<String, String>> iter = conditionList.entrySet().iterator();
+			while (iter.hasNext()) {
+				Entry<String, String> entry =  iter.next();
+				conditionStr = conditionStr+entry.getKey()+entry.getValue()+" and ";
+			}
+			conditionStr=conditionStr+"1=1";
+			String sql="select * from " +DB_table_name+conditionStr;
 			SQLQuery query=session.createSQLQuery(sql).addEntity(bean.getClass());
 			List<T> result = query.list();
 			session.close();

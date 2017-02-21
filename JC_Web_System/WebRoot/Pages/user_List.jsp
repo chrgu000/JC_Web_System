@@ -5,6 +5,10 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
+<%@ page import ="com.bean.SysUsers"%>
+<%@ page import ="java.util.*"%>
+
+
 <%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -18,7 +22,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="<%=basePath%>/Pages/common/css/admin.css">
 <script src="<%=basePath%>/Pages/common/js/jquery.js"></script>
 <script src="<%=basePath%>/Pages/common/js/pintuer.js"></script>
+<script type="text/javascript">
+//页面加载时执行
+$(document).ready(function(){
 
+<% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
+<% int pageCounts =Integer.parseInt(String.valueOf(session.getAttribute("pageCounts"))); %>
+<% int pageCurrent =Integer.parseInt(String.valueOf(session.getAttribute("pageCurrent"))); %>
+	alert("<%=pageCurrent%>");
+
+	$(".pagelist").children().each(function(){
+		//alert("<%=pageCurrent%>");
+		if(($(this).text())=="<%=pageCurrent%>"){
+			$(this).addClass("current");
+			$(this).removeAttr("href")
+		}
+  	});
+	
+}); 
+</script>
 </head>
 <body>
 <form name="userList" action="userList.action" method="post">
@@ -43,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           
           <input type="text" id="i_userName" placeholder="输入姓名查询" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
           <a class="button border-main icon-search" id="u_search" href="javascript:void(0);"> 
-          	搜索</a></li>
+          	搜索</a>
           </div>
       </ul>
     </div>
@@ -57,20 +79,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <th>用户类型</th>
         <th>操作</th>
       </tr>
-     <s:iterator value="pageBean.list">
+     <%for(SysUsers user:usersList){ %>
         <tr>
           <td style="text-align:left; padding-left:20px;">
-          <input type="checkbox" name="chk_list" value="<s:property value="userId"/>"/>
-          <s:property value="userId"/>
+          <input type="checkbox" name="chk_list" value="<%=user.getUserId()%>"/>
+          <%=user.getUserId()%>
           </td>
-          <td><s:property value="userLoginName"/></td>
-          <td><font color="#00CC99"><s:property value="userName"/></font></td>
-          <td><s:property value="userPhoneNum"/></td>
-          <td><s:property value="userEmail"/></td>
-          <td>
-          	<s:if test="%{pageBean.userType == 0}">
-          	管理员</s:if>
-          	<s:else>用户</s:else></td>
+          <td><%=user.getUserLoginName() %></td>
+          <td><font color="#00CC99"><%=user.getUserName()%></font></td>
+          <td><%=user.getUserPhoneNum()%></td>
+          <td><%=user.getUserEmail()%></td>
+          <td><%=user.getUserType()==0?"管理员":"用户"%></td>
           <td><div class="button-group" > 
           <a class="button border-main" id="user_edit" href="javascript:void(0);">
           <span class="icon-edit"></span>
@@ -79,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <span class="icon-trash-o"></span> 
          	 删除</a> </div></td>
         </tr>
-   		</s:iterator>
+   		<%} %>
         
       <tr>
         <td style="text-align:left; padding:19px 0;padding-left:20px;">
@@ -93,29 +112,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </tr>
       <tr>
         <td colspan="8">
-        <div class="pagelist">
-			<s:if test="%{pageBean.currentPage == 1}">
-			首页   上一页  
-			</s:if>
-			<s:else>  
-        	<a href="userList!pager?page=1">首页</a>  
-        	<a href="userList!pager?page=<s:property value="%{pageBean.currentPage-1}"/>" />上一页</a>  
-        	</s:else>
-        	<a href=""><s:property value="pageBean.currentPage"/></a>
-			<s:if test="%{pageBean.currentPage != pageBean.totalPage}">  
-            <a href="userList!pager?page=<s:property value="%{pageBean.currentPage+1}"/>">下一页</a>  
-            <a href="userList!pager?page=<s:property value="pageBean.totalPage"/>">尾页</a>  
-        	</s:if>  
-        	<s:else>   
-       		 下一页   尾页  
-　　　　    		</s:else>  
-			页数(<s:property value="pageBean.currentPage"/>/<s:property value="pageBean.totalPage"/>)
-			   共<s:property value="pageBean.allRow"/>记录 
-			
-        <%-- <%for(int i=1;i<=pageCounts;i++){ %>
+        <div class="pagelist">页码：
+        <%for(int i=1;i<=pageCounts;i++){ %>
         <a href="" id="pageNum"><%=i %></a>
-        <span class="current"><%=i %></span>
-        <%} %> --%>
+        <%-- <span class="current"><%=i %></span> --%>
+        <%} %>
         </div></td>
       </tr>
     </table>
@@ -145,6 +146,23 @@ $(function(){
     //alert(userType);
     window.location.href = "userList!gotoEditUser.action?userId="
     	+userId; 
+});
+
+});
+
+
+//点击页码
+$(function(){
+ $("[id=pageNum]").click(function(){
+ 	var pageNum = $(this).text();
+    //alert(pageNum);
+    if(pageNum=="<%=pageCurrent%>"){
+     	return false;
+    }else{
+    	//alert(pageNum);
+    	window.location.href = "userList!findPage.action?pageNum="
+    		+pageNum; 
+    	}
 });
 
 });

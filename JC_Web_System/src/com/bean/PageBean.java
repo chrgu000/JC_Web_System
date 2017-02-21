@@ -3,9 +3,9 @@ package com.bean;
 import java.util.List;
 
 @SuppressWarnings("unchecked")  
-public class PageBean {  
+public class PageBean<T> {  
   
-    private List list; // 要返回的某一页的记录列表  
+    private  List<T> list; // 要返回的某一页的记录列表  
   
     private int allRow; // 总记录数  
     private int totalPage; // 总页数  
@@ -16,14 +16,6 @@ public class PageBean {
     private boolean isLastPage; // 是否为最后一页  
     private boolean hasPreviousPage; // 是否有前一页  
     private boolean hasNextPage; // 是否有下一页  
-  
-    public List getList() {  
-        return list;  
-    }  
-  
-    public void setList(List list) {  
-        this.list = list;  
-    }  
   
     public int getAllRow() {  
         return allRow;  
@@ -120,5 +112,13 @@ public class PageBean {
     public static int countCurrentPage(int page) {  
         final int curPage = (page == 0 ? 1 : page);  
         return curPage;  
-    }  
+    }
+
+	public List<T> getList() {
+		return list;
+	}
+
+	public void setList(List<T> list) {
+		this.list = list;
+	}  
 }  

@@ -57,12 +57,12 @@ public class UserServiceImpl implements com.service.IUserService {
 			//PageBean.countOffset(pageShowSize, currentPage);
 			//String hql="select * from [JC_Web_System_DB].[dbo].[Sys_Users] ";
 			String hql="from com.bean.SysUsers";
-			int allRow=sysUsersDAO.getAllRowCount(hql);
-			pb.setAllRow(allRow);
+			List<SysUsers> list=sysUsersDAO.getByPage(pageCurrent);
+			pb.setAllRow(sysUsersDAO.getPageCounts());
 			pb.setPageSize(pageShowSize);
-			pb.setTotalPage(PageBean.countTotalPage(pageShowSize, allRow));
+			//pb.setTotalPage(PageBean.countTotalPage(pageShowSize, allRow));
 			//int countOffset=PageBean.countOffset(pageShowSize, pageCurrent);
-			List list= sysUsersDAO.queryForPage(hql,pageShowSize,pageCurrent);
+			//List list= sysUsersDAO.queryForPage(hql,pageShowSize,pageCurrent);
 			pb.setList(list);
 			
 			return pb;

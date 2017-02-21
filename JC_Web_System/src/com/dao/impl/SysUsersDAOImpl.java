@@ -1,7 +1,9 @@
 package com.dao.impl;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -13,6 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.bean.PageBean;
 import com.bean.SysUsers;
 import com.dao.BaseDao;
 import com.dao.ISysUsersDAO;
@@ -23,6 +27,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	@Resource SessionFactory sessionFactory;
 	
 	public static final int pageLinesNum=3;//定义每个页面显示的列表行数
+	public static final String DB_table_name="[JC_Web_System_DB].[dbo].[Sys_Users]";
 	
 	private SqlUtil sqlUtil;
 	
@@ -72,7 +77,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		if (ul.size() == 1)
         {
 			//System.out.println("查到一条合法用户数据");
-            return ul.get(0);
+			return ul.get(0);
             
         }
 		return null;
@@ -81,7 +86,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	
 	//页面值查询数据...未测试
 	
-	public List<SysUsers> getByPage(int pageNum){
+	/*public List<SysUsers> getByPage(int pageNum){
 		
 		
 		//几种典型的分页sql，下面例子是每页50条，198*50=9900，取第199页数据。
@@ -103,7 +108,15 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		List<SysUsers> list=(List<SysUsers>) sqlUtil.queryHqlListBySession(sql,new SysUsers() );
 		
 		return list;
+	}*/
+	
+	public  PageBean<SysUsers> getByPage(HashMap<String, String> conditionList,int pageNum){
+		
+		return sqlUtil.queryForPage(DB_table_name, conditionList, new SysUsers(), pageNum);
+		
+		
 	}
+	
 	
 	//按条件页面值查询数据...未测试
 	public List<SysUsers> getByPageT_N(int pageNum,int userType, String userName){

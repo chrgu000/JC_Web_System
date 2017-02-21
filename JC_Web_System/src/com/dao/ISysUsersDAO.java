@@ -1,7 +1,9 @@
 package com.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.bean.PageBean;
 import com.bean.SysUsers;
 
 public interface ISysUsersDAO {
@@ -50,7 +52,7 @@ public interface ISysUsersDAO {
     SysUsers findSysUsersByNameAndPass(String SysUsersname , String password);
 	List<SysUsers> getByT_N(int userType, String userName);
 	int getPageCounts();
-	List<SysUsers> getByPage(int i);
+	PageBean<SysUsers> getByPage(HashMap<String, String> conditionList,int i);
 	
 	
 	public List queryForPage(final String hql, final int offset,final int length);  

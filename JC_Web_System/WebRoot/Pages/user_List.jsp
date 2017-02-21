@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <%@ page import ="com.bean.SysUsers"%>
+<%@ page import ="com.bean.PageBean"%>
 <%@ page import ="java.util.*"%>
 
 
@@ -26,9 +27,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 //页面加载时执行
 $(document).ready(function(){
 
-<% List<SysUsers> usersList=(List<SysUsers>)session.getAttribute("usersList"); %>
-<% int pageCounts =Integer.parseInt(String.valueOf(session.getAttribute("pageCounts"))); %>
-<% int pageCurrent =Integer.parseInt(String.valueOf(session.getAttribute("pageCurrent"))); %>
+<% PageBean<SysUsers> pageBean=(PageBean)session.getAttribute("pageBean");
+   List<SysUsers> usersList=pageBean.getList(); 
+   int pageCounts =pageBean.getTotalPage(); 
+   int pageCurrent =pageBean.getCurrentPage(); %>
+   
 	alert("<%=pageCurrent%>");
 
 	$(".pagelist").children().each(function(){

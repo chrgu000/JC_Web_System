@@ -1,6 +1,9 @@
 package com.publicMethos;
 
+import java.util.HashMap;
 import java.util.List;
+
+import com.bean.PageBean;
 
 public interface SqlUtil {
 	
@@ -13,4 +16,15 @@ public interface SqlUtil {
 	public int queryHqlPagesNum(String sql);
 	
 	public int executeUpdate(String hql);
+	
+	
+	//public int queryHqlRowsNum(String DB_table_name,HashMap<String,String> conditionList);
+	
+	//public <T> List<T> queryHqlListBySession(String DB_table_name, HashMap<String,String> conditionList,T bean);
+	
+	public <T> PageBean<T> queryForPage(String DB_table_name,
+			HashMap<String,String> conditionList,T bean,
+			int pageCurrent);
+	
+	
 }

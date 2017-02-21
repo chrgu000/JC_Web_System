@@ -22,7 +22,7 @@ public class UserAction extends ActionSupport {
 	protected IUserService userService;     //该对象采用 Spring 依赖注入
 	
 	public int pageCurrent; // 第几页     
-	public PageBean<SysUsers> pageBean; // 包含分布信息的bean ,实例化泛型类为SysUsers类
+	//public PageBean<SysUsers> pageBean; // 包含分布信息的bean ,实例化泛型类为SysUsers类
 	
 	@Override
 	public String execute() throws Exception {
@@ -42,8 +42,9 @@ public class UserAction extends ActionSupport {
 			request.getSession().setAttribute("currentUser", user);
 			this.pageCurrent=1;
 			//String s=this.pager();
-			this.pageBean = userService.queryForPage(this.pageCurrent);
-			//System.out.print(pageBean.getList().get(0));
+			PageBean pageBean = userService.queryForPage(this.pageCurrent);
+			
+			request.getSession().setAttribute("pageBean", pageBean);
 			 
 			return "LoginSuccess";
 		} else {
@@ -73,7 +74,7 @@ public class UserAction extends ActionSupport {
 
 	public String pager(){  
 	    //分页的pageBean,参数pageSize表示每页显示记录数,page为当前页         
-	    this.pageBean = userService.queryForPage( pageCurrent);        
+	    //this.pageBean = userService.queryForPage( pageCurrent);        
 	    return "userList";  
 	} 
 	

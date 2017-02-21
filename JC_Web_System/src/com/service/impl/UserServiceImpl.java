@@ -1,6 +1,11 @@
 package com.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.bean.PageBean;
 import com.bean.SysUsers;
@@ -51,21 +56,27 @@ public class UserServiceImpl implements com.service.IUserService {
 	}
 
 	public PageBean queryForPage(int pageCurrent) {
-		PageBean pb=new PageBean();
-			pb.init();
-			pb.setCurrentPage(PageBean.countCurrentPage(pageCurrent));
-			//PageBean.countOffset(pageShowSize, currentPage);
-			//String hql="select * from [JC_Web_System_DB].[dbo].[Sys_Users] ";
-			String hql="from com.bean.SysUsers";
-			List<SysUsers> list=sysUsersDAO.getByPage(pageCurrent);
-			pb.setAllRow(sysUsersDAO.getPageCounts());
-			pb.setPageSize(pageShowSize);
-			//pb.setTotalPage(PageBean.countTotalPage(pageShowSize, allRow));
-			//int countOffset=PageBean.countOffset(pageShowSize, pageCurrent);
-			//List list= sysUsersDAO.queryForPage(hql,pageShowSize,pageCurrent);
-			pb.setList(list);
-			
-			return pb;
+		HashMap conditionList=new HashMap<String, String>();
 		
+		HttpServletRequest request= ServletActionContext.getRequest();
+		int userType=(Integer)
+				(request.getSession().getAttribute("userType")
+						==null?-1:request.getSession().getAttribute("userType"));
+		
+		String userName=(String) 
+				(request.getSession().getAttribute("userName")
+						==null?"":request.getSession().getAttribute("userName"));
+		if(userType!=-1){
+			conditionList.put("user_type=", userType);
+		}
+		if(userName!=""){
+			conditionList.put("user_name like", "%"+userName+"%");
+		}
+	
+		PageBean pb = sysUsersDAO.getByPage(conditionList,pageCurrent);
+		
+
+		return pb;
+
 	}
 }

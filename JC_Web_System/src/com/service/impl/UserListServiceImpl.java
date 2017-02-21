@@ -87,7 +87,7 @@ public class UserListServiceImpl implements com.service.UserListService {
 		*/
 		
 		try {
-			return sysUsersDAO.getByPage(i);
+			return null;//sysUsersDAO.getByPage(i);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

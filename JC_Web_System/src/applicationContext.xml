@@ -13,12 +13,12 @@
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
 		</property>
 		<property name="url"
-			value="jdbc:sqlserver://SC-201702052142\SQLSERVER_1">
-			<!-- value="jdbc:sqlserver://zf16518905.iok.la:22536"> -->
+			
+			value="jdbc:sqlserver://zf16518905.iok.la:22536">
 		</property>
 		<property name="username" value="sa"></property>
-		<!-- <property name="password" value="wuliming_@_@1315"> -->
-		<property name="password" value="wuliming110">
+		<property name="password" value="wuliming_@_@1315">
+		<!-- <property name="password" value="wuliming110"> -->
 		</property>
 		
 		

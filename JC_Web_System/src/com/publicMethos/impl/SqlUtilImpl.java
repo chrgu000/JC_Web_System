@@ -3,18 +3,13 @@ package com.publicMethos.impl;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.bean.PageBean;
-import com.bean.SysUsers;
 import com.publicMethos.SqlUtil;
 
 public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
@@ -60,15 +55,15 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> PageBean<T> queryForPage(String DB_table_name,
-			HashMap<String, String> conditionList, T bean, int pageCurrent) {
+	public <T> PageBean<T> queryForPage(String DB_table_name,String Primarykey,
+			HashMap<String, String> conditionList, Class<T> bean, int pageCurrent) {
 
 		PageBean<T> pb = new PageBean<T>();
 		pb.init();
 		pb.setCurrentPage(PageBean.countCurrentPage(pageCurrent));
-		List<T> list = (List<T>) this.queryHqlListBySession(DB_table_name,
-				conditionList, bean.getClass());
-		int allRow = this.queryHqlRowsNum(DB_table_name, conditionList);
+		List<T> list = (List<T>) this.queryHqlListBySession(DB_table_name,Primarykey,
+				conditionList, bean);
+		int allRow = this.queryHqlRowsNum(DB_table_name,Primarykey, conditionList);
 		pb.setAllRow(allRow);// 设置总记录数
 		pb.setPageSize(pageLinesNum);// 设置页面显示行数
 		pb.setTotalPage(PageBean.countTotalPage(pageLinesNum, allRow));// 设置页面总数量
@@ -78,8 +73,8 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 
 	}
 
-	public <T> List<T> queryHqlListBySession(String DB_table_name,
-			HashMap<String, String> conditionList, T bean) {
+	public <T> List<T> queryHqlListBySession(String DB_table_name,String Primarykey,
+			HashMap<String, String> conditionList, Class<T> bean) {
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		String conditionStr = " where 1=1 and ";
 		if (conditionList != null) {
@@ -93,15 +88,23 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 			}
 		}
 		conditionStr = conditionStr + "1=1";
+
+		/*String sql="select user_id,user_login_name," +
+				"user_pwd,user_name,user_phone_num," +
+				"user_email,user_type  " +
+				"from (select row_number()over" +
+				"(order by user_id)rownumber,* from " +
+				"[JC_Web_System_DB].[dbo].[Sys_Users])a " +
+				"where rownumber>"+min+" and rownumber<" +max;*/
 		String sql = "select * from " + DB_table_name + conditionStr;
-		SQLQuery query = session.createSQLQuery(sql).addEntity(bean.getClass());
+		SQLQuery query = session.createSQLQuery(sql).addEntity(bean);
 		List<T> result = query.list();
 		session.close();
 		return result;
 	}
 
 	// 依照条件列表conditiaonList查询数据库DB_table_name中符合条件的数据总条数
-	public int queryHqlRowsNum(String DB_table_name,
+	public int queryHqlRowsNum(String DB_table_name,String Primarykey,
 			HashMap<String, String> conditionList) {
 		Session session = getHibernateTemplate().getSessionFactory()
 				.openSession();

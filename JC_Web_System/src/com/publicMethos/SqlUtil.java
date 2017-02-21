@@ -22,8 +22,8 @@ public interface SqlUtil {
 	
 	//public <T> List<T> queryHqlListBySession(String DB_table_name, HashMap<String,String> conditionList,T bean);
 	
-	public <T> PageBean<T> queryForPage(String DB_table_name,
-			HashMap<String,String> conditionList,T bean,
+	public <T> PageBean<T> queryForPage(String DB_table_name,String Primarykey,
+			HashMap<String,String> conditionList,Class<T> bean,
 			int pageCurrent);
 	
 	

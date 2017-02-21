@@ -28,6 +28,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	
 	public static final int pageLinesNum=3;//定义每个页面显示的列表行数
 	public static final String DB_table_name="[JC_Web_System_DB].[dbo].[Sys_Users]";
+	public static final String Primarykey="user_id";
 	
 	private SqlUtil sqlUtil;
 	
@@ -112,7 +113,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	
 	public  PageBean<SysUsers> getByPage(HashMap<String, String> conditionList,int pageNum){
 		
-		return sqlUtil.queryForPage(DB_table_name, conditionList, new SysUsers(), pageNum);
+		return sqlUtil.queryForPage(DB_table_name,Primarykey, conditionList, SysUsers.class, pageNum);
 		
 		
 	}

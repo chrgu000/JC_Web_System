@@ -62,7 +62,7 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 		pb.init();
 		pb.setCurrentPage(PageBean.countCurrentPage(pageCurrent));
 		List<T> list = (List<T>) this.queryHqlListBySession(DB_table_name,Primarykey,
-				conditionList, bean);
+				conditionList, bean,pageCurrent);
 		int allRow = this.queryHqlRowsNum(DB_table_name,Primarykey, conditionList);
 		pb.setAllRow(allRow);// 设置总记录数
 		pb.setPageSize(pageLinesNum);// 设置页面显示行数
@@ -74,7 +74,7 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 	}
 
 	public <T> List<T> queryHqlListBySession(String DB_table_name,String Primarykey,
-			HashMap<String, String> conditionList, Class<T> bean) {
+			HashMap<String, String> conditionList, Class<T> bean, int pageCurrent) {
 		Session session = getHibernateTemplate().getSessionFactory().openSession();
 		String conditionStr = " where 1=1 and ";
 		if (conditionList != null) {
@@ -89,14 +89,17 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 		}
 		conditionStr = conditionStr + "1=1";
 
-		/*String sql="select user_id,user_login_name," +
-				"user_pwd,user_name,user_phone_num," +
-				"user_email,user_type  " +
-				"from (select row_number()over" +
-				"(order by user_id)rownumber,* from " +
-				"[JC_Web_System_DB].[dbo].[Sys_Users])a " +
-				"where rownumber>"+min+" and rownumber<" +max;*/
-		String sql = "select * from " + DB_table_name + conditionStr;
+		String sql="select top " +
+				pageLinesNum+" * from " +
+				DB_table_name+" "+conditionStr+
+				" and " +Primarykey+
+				" not in(select top " +
+				(pageCurrent-1)*pageLinesNum+" "+Primarykey +
+				" from "+DB_table_name+" "+conditionStr+
+				" order by "+Primarykey+" asc) " +
+				"order by "+Primarykey+" asc";
+				
+		//String sql = "select * from " + DB_table_name + conditionStr;
 		SQLQuery query = session.createSQLQuery(sql).addEntity(bean);
 		List<T> result = query.list();
 		session.close();

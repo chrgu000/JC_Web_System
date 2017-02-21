@@ -6,3 +6,5 @@ https://github.com/wulm/JC_Web_System.git
 zf16518905.iok.la:22536
 ÕËºÅÃÜÂë£ºsa/qqpwd
 
+ajaxÒì²½Ë¢ĞÂjspÒ³Ãæ
+http://bbs.csdn.net/topics/391873891

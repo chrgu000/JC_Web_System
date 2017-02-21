@@ -5,21 +5,12 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-
 <%@ page import ="com.bean.SysUsers"%>
 <%@ page import ="com.bean.PageBean"%>
 <%@ page import ="java.util.*"%>
-<%@page isELIgnored="false" %>
-
-<% 
-   
-   PageBean<SysUsers> pageBean=(PageBean)session.getAttribute("pageBean");
-   List<SysUsers> usersList=pageBean.getList(); 
-   int pageCounts =pageBean.getTotalPage(); 
-   int pageCurrent =pageBean.getCurrentPage(); 
-%>
 
 
+<%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -35,17 +26,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 //页面加载时执行
 $(document).ready(function(){
-	
-	alert("<%=pageCurrent%>");
-	//alert("dddd");
+
+<% PageBean<SysUsers> pageBean=(PageBean)session.getAttribute("pageBean");
+   List<SysUsers> usersList=pageBean.getList(); 
+   int pageCounts =pageBean.getTotalPage(); 
+   int pageCurrent =pageBean.getCurrentPage(); %>
+	//alert("<%=pageCurrent%>");
 	$(".pagelist").children().each(function(){
 		//alert("<%=pageCurrent%>");
 		if(($(this).text())=="<%=pageCurrent%>"){
 			$(this).addClass("current");
-			//$(this).removeAttr("href")
+			$(this).removeAttr("href")
 		}
   	});
-  	//top.location.reload();
 });
 </script>
 </head>

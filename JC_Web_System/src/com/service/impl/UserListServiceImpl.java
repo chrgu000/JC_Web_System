@@ -2,20 +2,21 @@ package com.service.impl;
 
 import java.util.List;
 
+import com.bean.PageBean;
 import com.bean.SysUsers;
-import com.dao.SysUsersDAO;
+import com.dao.ISysUsersDAO;
 
 public class UserListServiceImpl implements com.service.UserListService {
 
+	public static final int pageShowSize=5;
 	
+	private ISysUsersDAO sysUsersDAO;
 	
-	private SysUsersDAO sysUsersDAO;
-	
-	public SysUsersDAO getSysUsersDAO() {
+	public ISysUsersDAO getSysUsersDAO() {
 		return this.sysUsersDAO;
 	}
 	
-	public void setSysUsersDAO(SysUsersDAO userDAO) {
+	public void setSysUsersDAO(ISysUsersDAO userDAO) {
 		this.sysUsersDAO = userDAO;
 	}
 
@@ -92,6 +93,23 @@ public class UserListServiceImpl implements com.service.UserListService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public PageBean queryForPage(int currentPage) {
+		// TODO Auto-generated method stub
+		PageBean pb=new PageBean();
+		pb.init();
+		pb.setCurrentPage(PageBean.countCurrentPage(currentPage));
+		//PageBean.countOffset(pageShowSize, currentPage);
+		String hql="select * from [JC_Web_System_DB].[dbo].[Sys_Users] ";
+		int allRow=sysUsersDAO.getAllRowCount(hql);
+		pb.setAllRow(allRow);
+		pb.setPageSize(pageShowSize);
+		pb.setTotalPage(PageBean.countTotalPage(pageShowSize, allRow));
+		List list= sysUsersDAO.queryForPage(hql,pageShowSize,currentPage);
+		pb.setList(list);
+		
+		return pb;
 	}
 	
 }

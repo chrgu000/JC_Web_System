@@ -10,11 +10,11 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.bean.PageBean;
-import com.publicMethos.SqlUtil;
+import com.publicMethos.ISqlUtil;
 
-public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
+public class SqlUtilImpl extends HibernateDaoSupport implements ISqlUtil {
 
-	public static final int pageLinesNum = 5;// 每页显示的数据条数
+	public static final int pageLinesNum = 4;// 每页显示的数据条数
 
 	/*
 	 * 执行查询语句，返回唯一值的结果eg:"select min(a.employeeid) from Emplyees a;"
@@ -29,17 +29,6 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 		return object;
 	}
 
-	/*
-	 * 执行hql/sql查询语句，将数据返回到column1~n，顺序排列
-	 * eg:"select name as column1, sex as column2 from Emplyees a;"
-	 */
-	/*
-	 * @SuppressWarnings("unchecked") public List<Object[]>
-	 * queryHqlBySession(String sql, int n) { Session session =
-	 * super.getSession(); SQLQuery query = session.createSQLQuery(sql); for(int
-	 * i = 1; i <= n; i++) { query.addScalar("column"+ i); } return
-	 * query.list(); }
-	 */
 
 	/*
 	 * 执行hql/sql查询语句，将数据返回bean中，bean的name和sql中as的name相同，自动注入
@@ -123,16 +112,7 @@ public class SqlUtilImpl extends HibernateDaoSupport implements SqlUtil {
 		String sql = "select count(*) from " + DB_table_name + conditionStr;
 		session.close();
 
-		return this.queryHqlPagesNum(sql);// (int)Math.ceil((double)this.queryHqlPagesNum(sql)/pageLinesNum);
-	}
-
-	public int queryHqlPagesNum(String sql) {
-		Session session = getHibernateTemplate().getSessionFactory()
-				.openSession();
-		SQLQuery query = session.createSQLQuery(sql);
-		int result = (Integer) query.list().get(0);
-		session.close();
-		return result;
+		return (Integer) this.queryHqlBySession(sql);// (int)Math.ceil((double)this.queryHqlPagesNum(sql)/pageLinesNum);
 	}
 
 	/*

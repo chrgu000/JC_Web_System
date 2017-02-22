@@ -58,7 +58,7 @@
 		<!-- 用户登录的Bean -->
 		<bean id="userAction" class="com.action.UserAction">
 			<property name="userService" ref="userService"></property>
-			
+			<property name="jsonManager" ref="jsonManager"></property>
 		</bean>
 		
 		<bean id="userService" class="com.service.impl.UserServiceImpl">
@@ -72,13 +72,18 @@
 			<property name="sqlUtil" ref="SqlUtil"></property>
 		</bean>
 		
+		<!-- 注入sql执行原生sql语句的类 -->
 		<bean id="SqlUtil" class="com.publicMethos.impl.SqlUtilImpl" >
 			<property name="sessionFactory">
 				<ref local="sessionFactory" />
 			</property>
 		</bean>
-		<!-- 注入sql执行原生sql语句的类 -->
-		<!-- <bean id="sqlManager" class="com.publicMethos.SQLManager"/> -->
+		
+		<!-- 注入json管理类 -->
+		<bean id="jsonManager" class="com.publicMethos.impl.JsonManagerImpl" >
+		</bean>
+		
+
 		
 		
 		<!-- 用户管理的Bean -->

@@ -6,7 +6,7 @@ import com.dao.ISysUsersDAO;
 
 public interface IUserService {
 
-	Integer validLogin(String username , String password);
+	SysUsers validLogin(String username , String password);
 	public ISysUsersDAO getSysUsersDAO();
 	public void setSysUsersDAO(ISysUsersDAO userDAO);
 	SysUsers getUserByID(Integer userId);

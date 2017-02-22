@@ -1,72 +1,36 @@
 package com.dao.impl;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import com.bean.PageBean;
 import com.bean.SysUsers;
-import com.dao.BaseDao;
 import com.dao.ISysUsersDAO;
-import com.publicMethos.SqlUtil;
+import com.publicMethos.ISqlUtil;
 
 public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO {
 
-	@Resource SessionFactory sessionFactory;
-	
 	public static final int pageLinesNum=3;//定义每个页面显示的列表行数
-	public static final String DB_table_name="[JC_Web_System_DB].[dbo].[Sys_Users]";
-	public static final String Primarykey="user_id";
+	public static final String DB_table_name="[JC_Web_System_DB].[dbo].[Sys_Users]";//用户数据库及数据表名称
+	public static final String Primarykey="user_id";//用户数据表主键名称
+	private ISqlUtil sqlUtil;//依赖注入执行自定义sql语句的通用类
 	
-	private SqlUtil sqlUtil;
-	
-	public SqlUtil getSqlUtil() {
+	public ISqlUtil getSqlUtil() {
 		return sqlUtil;
 	}
-
-	public void setSqlUtil(SqlUtil sqlUtil) {
+	public void setSqlUtil(ISqlUtil sqlUtil) {
 		this.sqlUtil = sqlUtil;
 	}
 
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().delete(getHibernateTemplate().get(SysUsers.class , id));
 	}
 
-	public void delete(SysUsers user) {
-		// TODO Auto-generated method stub
-		getHibernateTemplate().delete(user);
-	}
-
-	public List<SysUsers> findAll() {
-		// TODO Auto-generated method stub
-		return getHibernateTemplate().find("from com.bean.SysUsers");
-	}
-
 	public SysUsers get(Integer id) {
-		// TODO Auto-generated method stub
 		return getHibernateTemplate().get(SysUsers.class , id);
 	}
 
-	public void save(SysUsers user) {
-		// TODO Auto-generated method stub
-		getHibernateTemplate().save(user);
-	}
-
 	public void update(SysUsers user) {
-		// TODO Auto-generated method stub
 		getHibernateTemplate().saveOrUpdate(user);
 	}
 
@@ -84,34 +48,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		return null;
 	}
 
-	
-	//页面值查询数据...未测试
-	
-	/*public List<SysUsers> getByPage(int pageNum){
-		
-		
-		//几种典型的分页sql，下面例子是每页50条，198*50=9900，取第199页数据。
-		//每页显示m条，取第n页，则rownuber>m*(n-1),rownuber<m*(n-1)+m+1
-		int min=pageLinesNum*(pageNum-1);
-		int max=pageLinesNum*pageNum+1;
-		String sql="select user_id,user_login_name," +
-				"user_pwd,user_name,user_phone_num," +
-				"user_email,user_type  " +
-				"from (select row_number()over" +
-				"(order by user_id)rownumber,* from " +
-				"[JC_Web_System_DB].[dbo].[Sys_Users])a " +
-				"where rownumber>"+min+" and rownumber<" +max;
-		
-		//Session session=getHibernateTemplate().getSessionFactory().openSession();//打开新的session查询hql
-		//SQLQuery query=session.createSQLQuery(sql).addEntity(SysUsers.class);
-		//List<SysUsers> list = query.list();
-		//session.close();
-		List<SysUsers> list=(List<SysUsers>) sqlUtil.queryHqlListBySession(sql,new SysUsers() );
-		
-		return list;
-	}*/
-	
-	public  PageBean<SysUsers> getByPage(HashMap<String, String> conditionList,int pageNum){
+	public  PageBean<SysUsers> getUsersPageBean(HashMap<String, String> conditionList,int pageNum){
 		
 		return sqlUtil.queryForPage(DB_table_name,Primarykey, conditionList, SysUsers.class, pageNum);
 		
@@ -140,13 +77,13 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		return list;
 	}
 	
-	//获取查询页面总量。。未测试
+/*	//获取查询页面总量。。未测试
 	public int getPageCounts(){
 		String sql="";
 		sql="select count(*) from " +
 				"[JC_Web_System_DB].[dbo].[Sys_Users] ";
-		return (int)Math.ceil((double)sqlUtil.queryHqlPagesNum(sql)/pageLinesNum);//通过依赖注入执行hql语句
-	}
+		return (int)Math.ceil((double)((Integer)sqlUtil.queryHqlBySession(sql))/pageLinesNum);//通过依赖注入执行hql语句
+	}*/
 	
 	//按条件   获取查询页面数量...未测试
 	public int getPageCountsByT_N(int userType, String userName){
@@ -159,41 +96,9 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 				"user_name like '%"+userName+"%'";
 		}
 		//SQLManager sqlManager=(SQLManager)SqlUtil.getBean("sqlManager");
-		return (int)Math.ceil((double)sqlUtil.queryHqlPagesNum(sql)/pageLinesNum);//通过依赖注入执行hql语句
+		return (int)Math.ceil((double)((Integer)sqlUtil.queryHqlBySession(sql))/pageLinesNum);//通过依赖注入执行hql语句
 	}
 	
 	
-	
-	public List<SysUsers> getByT_N(int userType, String userName) {
-		// TODO Auto-generated method stub
-		if(userType==-1){
-			return getHibernateTemplate().find("from com.bean.SysUsers where userName like '%"+userName+"%'");
-		}else{
-			return getHibernateTemplate().find("from com.bean.SysUsers where userType="+userType+" and userName like '%"+userName+"%'");
-		}
-	}
-
-	public List queryForPage(final String hql, final int offset, final int length) {
-		// TODO Auto-generated method stub
-		List list = super.getHibernateTemplate().executeFind(new HibernateCallback() {  
-            public Object doInHibernate(Session session)  
-                    throws HibernateException, SQLException {  
-                Query query = session.createQuery(hql);  
-                query.setFirstResult(offset);  
-                query.setMaxResults(length);  
-                List list = query.list();  
-                return list;  
-  
-            }
-        });  
-        return list;  
-	}
-	
-	
-
-	public int getAllRowCount(String hql) {
-		// TODO Auto-generated method stub
-		return getHibernateTemplate().find(hql).size(); 
-	}
 
 }

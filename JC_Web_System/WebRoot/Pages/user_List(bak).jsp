@@ -156,15 +156,16 @@ $(function(){
 //点击页码
 $(function(){
  $("[id=pageNum]").click(function(){
- 	var pageNum = $(this).text();
-    //alert(pageNum);
-    if(pageNum=="<%=pageCurrent%>"){
-     	return false;
-    }else{
-    	//alert(pageNum);
-    	window.location.href = "user!findPage.action?pageNum="
-    		+pageNum; 
-    	}
+ 	var pageNum=$(this).text();
+ 	$("a[id='pageNum']").each(function(){
+	  if (this.text()!=pageNum) {
+		 $(this).removeAttr("href")
+	  }
+	  else {
+		  $(this).addClass("current");
+		  
+	  }
+  });
 });
 
 });

@@ -107,10 +107,10 @@ $(function(){
 	</ul>
 	<div class="admin">
 	<%if(currentUser.getUserType()==0){ %>
-		<iframe scrolling="auto" rameborder="0" src="Pages/user_List.jsp" name="right"
+		<iframe scrolling="auto" style="height:99%;" rameborder="0" src="Pages/user_List.jsp" name="right"
 			width="100%" height="100%"></iframe> 
 	<%}else{ %>
-		<iframe scrolling="auto" rameborder="0" src="Pages/error.jsp" name="right"
+		<iframe scrolling="auto" style="height:99%;" rameborder="0" src="Pages/error.jsp" name="right"
 			width="100%" height="100%"></iframe>
 	<%} %>
 	</div>

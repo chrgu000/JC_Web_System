@@ -13,11 +13,6 @@ public interface ISysUsersDAO {
      * @param id 需要查找的用户id
      */  
     SysUsers get(Integer id);
-    /**
-     * 增加用户
-     * @param SysUsers 需要增加的用户
-     */       
-    void save(SysUsers SysUsers);
 
     /**
      * 修改用户
@@ -32,30 +27,21 @@ public interface ISysUsersDAO {
     void delete(Integer id);
 
     /**
-     * 删除用户
-     * @param SysUsers 需要删除的用户
-     */  
-    void delete(SysUsers SysUsers);
-
-    /**
-     * 查询全部用户
-     * @return 获得全部用户
-     */ 
-    List<SysUsers> findAll();
-
-    /**
      * 根据用户名，密码查找用户
      * @param SysUsersname 查询所需的用户名
      * @param pass 查询所需的密码
      * @return 对应的用户
      */ 
     SysUsers findSysUsersByNameAndPass(String SysUsersname , String password);
-	List<SysUsers> getByT_N(int userType, String userName);
-	int getPageCounts();
-	PageBean<SysUsers> getByPage(HashMap<String, String> conditionList,int i);
+	
+    /**
+     * 根据条件列表、页码值查找用户
+     * @param conditionList sql查询语句所需条件列表
+     * @param pageNum 页码值
+     * @return 对应的PageBean对象，包含分页显示用户的所有信息
+     */ 
+	PageBean<SysUsers> getUsersPageBean(HashMap<String, String> conditionList,int pageNum);
 	
 	
-	public List queryForPage(final String hql, final int offset,final int length);  
-	public int getAllRowCount(String hql); 
 	
 }

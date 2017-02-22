@@ -12,34 +12,34 @@ import com.bean.SysUsers;
 import com.dao.ISysUsersDAO;
 
 public class UserServiceImpl implements com.service.IUserService {
-
-	
-	public static final int pageShowSize=5;
 	
 	private ISysUsersDAO sysUsersDAO;
 	
 	public ISysUsersDAO getSysUsersDAO() {
 		return this.sysUsersDAO;
 	}
-	
 	public void setSysUsersDAO(ISysUsersDAO userDAO) {
 		this.sysUsersDAO = userDAO;
 	}
 
-	public Integer validLogin(String username, String password){
-		
-			 try {	
-					SysUsers user = sysUsersDAO.findSysUsersByNameAndPass(username, password);
-					if (user!= null)
-					{
-						return user.getUserId();
-					}
-		     }
-		     catch (Exception e)
-		     {
-		            System.out.println(e.getMessage());
-		     }
-	         return null;
+	
+	
+	/**作用：验证用户登录
+	 * 参数1：username用户名
+	 * 参数2：password密码
+	 * 返回值：成功返回用户对象，否则null
+	 * 创建时间：8:17:12 PM  创建者：wulm
+	 */
+	public SysUsers validLogin(String username, String password) {
+
+		SysUsers user = sysUsersDAO.findSysUsersByNameAndPass(username,
+				password);
+		if (user != null) {
+			return user;
+		} else {
+			return null;
+		}
+
 	}
 
 	public SysUsers getUserByID(Integer userId) {
@@ -55,8 +55,8 @@ public class UserServiceImpl implements com.service.IUserService {
 		return null;
 	}
 
-	public PageBean queryForPage(int pageCurrent) {
-		HashMap conditionList=new HashMap<String, String>();
+	public PageBean<SysUsers> queryForPage(int pageCurrent) {
+		HashMap<String, String> conditionList=new HashMap<String, String>();
 		
 		HttpServletRequest request= ServletActionContext.getRequest();
 		int userType=(Integer)
@@ -67,15 +67,14 @@ public class UserServiceImpl implements com.service.IUserService {
 				(request.getSession().getAttribute("userName")
 						==null?"":request.getSession().getAttribute("userName"));
 		if(userType!=-1){
-			conditionList.put("user_type=", userType);
+			conditionList.put("user_type=", userType+"");
 		}
 		if(userName!=""){
 			conditionList.put("user_name like", "%"+userName+"%");
 		}
 	
-		PageBean pb = sysUsersDAO.getByPage(conditionList,pageCurrent);
+		PageBean<SysUsers> pb = sysUsersDAO.getUsersPageBean(conditionList,pageCurrent);
 		
-
 		return pb;
 
 	}

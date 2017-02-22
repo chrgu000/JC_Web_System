@@ -64,15 +64,19 @@ public class UserAction extends ActionSupport {
 		return "LogOut";
 	}
 	
-	public String updateUserPage(){
+	
+	//按照页码刷新用户列表，通过json返回到前台，局部刷新
+	public void updateUserPage(){
 		PageBean pageBean = userService.queryForPage(1);
 		HttpServletRequest request=ServletActionContext.getRequest();
 		request.getSession().setAttribute("pageBean", pageBean);
-		return "userList";
+		//return "userList";
 		
 	}
 	
-	public String findPage(){
+	
+	//查找用户，通过jason返回到前台，局部刷新
+	public void findPage(){
 		
 		
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -80,7 +84,7 @@ public class UserAction extends ActionSupport {
 		this.pageCurrent=pageNum;
 		PageBean pageBean = userService.queryForPage(pageCurrent);
 		request.getSession().setAttribute("pageBean", pageBean);
-		return "userList";
+		//return "userList";
 	}
 	
 	

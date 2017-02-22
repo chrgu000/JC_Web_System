@@ -8,3 +8,5 @@ zf16518905.iok.la:22536
 
 ajax异步刷新jsp页面
 http://bbs.csdn.net/topics/391873891
+j2eeSSH利用JSON实现异步查询，根据条件查询出结果，实现结果部分局部刷新保留查询结果
+http://blog.csdn.net/a281246240/article/details/37108869

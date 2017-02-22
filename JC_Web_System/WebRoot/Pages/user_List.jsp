@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 //页面加载时执行
 $(document).ready(function(){
 	
-	alert("<%=pageCurrent%>");
+	//alert("<%=pageCurrent%>");
 	//alert("dddd");
 	$(".pagelist").children().each(function(){
 		//alert("<%=pageCurrent%>");
@@ -60,32 +60,39 @@ $(document).ready(function(){
     </div>
     <div class="padding border-bottom">
       <ul class="search" style="padding-left:10px;">
-        <li style="float:left;"> <a class="button border-main icon-plus-square-o" 
-        	href="userList!gotoAddUser.action"> 添加用户</a> </li>
-        <div style="float:right;">
-         	 用户类型
-          <select id="s_userType" name="s_userType" class="input"  style="width:100px; line-height:17px;display:inline-block">
+        <li style="float:left;"> <a class="button border-main icon-plus-square-o" style="padding:5px 10px;" 
+        	href="userList!gotoAddUser.action"> 添加用户</a> 
+        	<a href="" class="button border-red icon-plus-square-o" style="padding:5px 10px;" onclick="DelSelect()">
+        	批量删除</a>
+        	</li>
+        	
+        <!-- <div style="float:right;"> -->
+        <li style="float:right;">
+         	 类型
+          <select id="s_userType" name="s_userType" class="input"  style="padding:5px 15px;width:100px; line-height:17px;display:inline-block">
             <option value="-1">不限</option>
             <option value="0">管理员</option>
             <option value="1">普通用户</option>
           </select>
           
-          <input type="text" id="i_userName" placeholder="输入姓名查询" name="keywords" class="input" style="width:150px; line-height:17px;display:inline-block" />
-          <a class="button border-main icon-search" id="u_search" href="javascript:void(0);"> 
+          <input type="text" id="i_userName" placeholder="输入姓名查询" name="keywords" class="input" style="padding:5px 15px;width:150px; line-height:17px;display:inline-block" />
+          <a class="button border-main icon-search" style="padding:5px 10px" id="u_search" href="javascript:void(0);"> 
           	搜索</a>
-          </div>
+          <!-- </div> -->
+          </li>
       </ul>
     </div>
     <table class="table table-hover text-center">
       <tr>
-        <th>请选择</th>
+        <th><input type="checkbox" id="checkall"/>全选</th>
         <th>登录名</th>
         <th>姓名</th>
         <th>手机号</th>
-        <th>电子邮箱</th>
-        <th>用户类型</th>
+        <th>E-mail</th>
+        <th>类型</th>
         <th>操作</th>
       </tr>
+      
      <%for(SysUsers user:usersList){ %>
         <tr>
           <td style="text-align:left; padding-left:20px;">
@@ -98,30 +105,20 @@ $(document).ready(function(){
           <td><%=user.getUserEmail()%></td>
           <td><%=user.getUserType()==0?"管理员":"用户"%></td>
           <td><div class="button-group" > 
-          <a class="button border-main" id="user_edit" href="javascript:void(0);">
-          <span class="icon-edit"></span>
+          <a class="button border-main" style="padding:3px 8px" id="user_edit" href="javascript:void(0);">
+          <span class="icon-edit" ></span>
         	  修改</a>
-          <a class="button border-red" id="user_delete" href="javascript:void(0);">
+          <a class="button border-red" style="padding:3px 8px" id="user_delete" href="javascript:void(0);">
           <span class="icon-trash-o"></span> 
          	 删除</a> </div></td>
         </tr>
    		<%} %>
         
-      <tr>
-        <td style="text-align:left; padding:19px 0;padding-left:20px;">
-        	<input type="checkbox" id="checkall"/>
-         	 全选 </td>
-        <td colspan="7" style="text-align:left;padding-left:20px;">
-        <a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()">
-        	批量删除</a> 
-        
-         </td>
-      </tr>
-      <tr>
+       <tr >
         <td colspan="8">
         <div class="pagelist">页码：
         <%for(int i=1;i<=pageCounts;i++){ %>
-        <a href="" id="pageNum"><%=i %></a>
+        <a href=""  style="padding:1px 5px" id="pageNum"><%=i %></a>
         <%-- <span class="current"><%=i %></span> --%>
         <%} %>
        	 &nbsp;共<%=pageBean.getAllRow()%>条
@@ -175,6 +172,29 @@ $(function(){
 });
 
 });
+
+
+//异步刷新用户表格数据
+function getzhuceid() {
+	$("#registeredAddressTown").empty();//清空
+	var zhuceid = document.getElementById("zhuceid").value;
+	var url = "public_qu2zhen.action?quid=" + zhuceid;
+	$.ajax( {
+		type : "POST",
+		url : url,
+		data : {},
+		dataType : "JSON",
+		success : function(data) {
+			//data为后台返回的Json信息
+			for(var n=0;n<data.length;n++){
+	 		  var ids=data[n].id;
+				var names=data[n].name;
+				$("#registeredAddressTown").append("<option id='"+ids+"' value='"+names+"'>"+names+"</option>");
+	     		}
+		}
+	})
+}
+
 
 
 //单个删除

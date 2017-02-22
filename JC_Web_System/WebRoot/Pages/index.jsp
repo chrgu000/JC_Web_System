@@ -47,7 +47,7 @@ $(function(){
 		
 		<div class="head-l">
 		
-			<a class="button button-little bg-green" href="userLogin!logOut.action">
+			<a class="button button-little bg-green"  style="padding:5px 10px" href="userLogin!logOut.action">
 			<span class="icon-power-off"></span> 退出登录</a>
 		</div>
 		

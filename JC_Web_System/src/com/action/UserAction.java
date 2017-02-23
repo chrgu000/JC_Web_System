@@ -121,6 +121,7 @@ public class UserAction extends ActionSupport {
 	        System.out.println(jsonData);
 	        
 	        HttpServletResponse response =   ServletActionContext.getResponse();
+	        response.setContentType("text/plain;charset=UTF-8");//设置返回数据文本编码为utf-8
 	        response.getWriter().write(jsonData);//返回json数据到前台
 	        response.getWriter().flush();
 	    }catch (Exception e){

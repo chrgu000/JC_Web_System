@@ -26,28 +26,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="<%=basePath%>/Pages/common/css/admin.css">
 <script src="<%=basePath%>/Pages/common/js/jquery.js"></script>
 <script src="<%=basePath%>/Pages/common/js/pintuer.js"></script>
+
+
 <script type="text/javascript">
 //页面加载时执行
-
-var pageNow=<%=pageCurrent%>;
-
+var pageNow=<%=pageCurrent%>;//js全局变量pageNow
+//页面加载时执行
 $(document).ready(function(){
-	
 	//alert("<%=pageCurrent%>");
-	//alert("dddd");
+	
 	$(".pagelist").children().each(function(){
 		//alert("<%=pageCurrent%>");
-		if(($(this).text())=="<%=pageCurrent%>"){
+		if(($(this).text())==pageNow){
+			//alert(pageNow);
 			$(this).addClass("current");
-			//$(this).removeAttr("href")
+			$(this).removeAttr("href")
 		}
   	});
   	//top.location.reload();
 });
 
-
-
 </script>
+
 </head>
 <body>
 <form name="userList" action="userList.action" method="post">
@@ -124,9 +124,9 @@ $(document).ready(function(){
        <table class="table table-hover text-center">
        <tr >
         <td colspan="8">
-        <div class="pagelist" id="pagelist">页码：
+        <div class="pagelist" id="pageNum">页码：
         <%for(int i=1;i<=pageCounts;i++){ %>
-        <a href=""  style="padding:3px 9px" id="pageNum"><%=i %></a>
+        <a href="" class="" style="padding:3px 9px" id="pageNum"><%=i %></a>
         <%-- <span class="current"><%=i %></span> --%>
         <%} %>
        	 &nbsp;共<%=pageBean.getAllRow()%>条数据
@@ -136,13 +136,12 @@ $(document).ready(function(){
     </table>
   </div>
 </form>
+
+
+
 <script type="text/javascript">
 
-
-
-
-//搜索
-//function changesearch(){	
+////搜索
 $("#u_search").click(function(){	
 	var  IuserName=document.getElementById("i_userName").value;
 	var  SuserType=document.getElementById("s_userType");
@@ -151,105 +150,98 @@ $("#u_search").click(function(){
 	window.location.href="userList!searchUserByT_N.action?userType="+s_value+"&userName="+IuserName; 
 });
 
-
-//单个编辑
-$(function(){
- $("[id=user_edit]").click(function(){
- 	var userId = $(this).parent().parent().parent().find("td:eq(0)").text();
-    
-    //alert(userType);
-    window.location.href = "userList!gotoEditUser.action?userId="
-    	+userId; 
-});
-
-});
-
-
-//点击页码
-<%-- $(function(){
- $("[id=pageNum]").click(function(){
- 	var pageNum = $(this).text();
-    //alert(pageNum);
-    if(pageNum=="<%=pageCurrent%>"){
-     	return false;
-    }else{
-    	//alert(pageNum);
-    	window.location.href = "user!findPage.action?pageNum="
-    		+pageNum; 
-    	}
-});
-
-}); --%>
-
-
+</script>
+<script type="text/javascript">
+//$(function(){
+	//单个编辑
+	$("[id=user_edit]").click(function(){
+		var userId = $(this).parent().parent().parent().find("td:eq(0)").text();
+		window.location.href = "userList!gotoEditUser.action?userId="
+			+userId; 
+	});
+	
+	
+	//单个删除
+	$("[id=user_delete]").click(function(){
+		if(confirm("您确定要删除吗?")){
+			var userId = $(this).parent().parent().parent().find("td:eq(0)").text();
+			
+			window.location.href = "userList!DeleteUser.action?userId="
+	    	+userId;
+			
+		}
+	});
+	
+	
+	//点击页码
+	$("#pageNum a").click(function(){
+	 	//alert("111111");
+	 	var pageNum=$(this).text();
+	 	//alert(pageNow);
+	 	//if(pageNow==pageNum){
+	 		//return false;
+	 	//}
+	 	pageNow=pageNum;
+	 	//alert(pageNow);
+	 	$("#pageNum a").each(function(){
+	 	  //alert($(this).text());
+		  if ($(this).text()==pageNum) {
+		  	$(this).attr("class", "current");
+			$(this).removeAttr("href");
+			
+		  }
+		  else {
+			 $(this).attr("class", "");
+			 $(this).attr("href","");
+		  }
+		  
+	  });
+	  //alert($(this).text());
+	  //alert("333333");
+	  updateUserTable(pageNow);
+	});
+ 
+ 
+//});
+</script>
+<script type="text/javascript">
 //异步刷新用户表格数据
-function updateUserTable() {
-	//alert("2222");
-	$("#registeredAddressTown").empty();//清空
-	//var zhuceid = document.getElementById("zhuceid").value;
-	var url = "user!updateUserTable.action?pageNum=" + pageNow;
+function updateUserTable(page) {
+	alert("2222");
+	var url = "user!updateUserTable.action?pageNum=" + page;
+	//$("#registeredAddressTown").empty();//清空
 	$.ajax( {
 		type : "POST",
 		url : url,
-		data : {},
+		data :{},//传给后台的参数
 		dataType : "JSON",
 		success : function(jsonData) {
-			//data为后台返回的Json信息
-			for(var n=0;n<jsonData.length;n++){
-	 			var ids=jsonData[n].userId;
-	 			alert(ids);
-				//var names=data[n].name;
-				//$("#registeredAddressTown").append("<option id='"+ids+"' value='"+names+"'>"+names+"</option>");
-	     	}
+			//alert(jsonData);
+			//rebuildUserTable(jsonData);//刷新users_table表
+		}
+		error:function(){
+			alert("跳转列表出错！");
 		}
 	})
+	
+	//return true;
 }
 
-//点击页码
-$(function(){
- $("#pagelist a").click(function(){
- 	
- 	var pageNum=$(this).text();
- 	
- 	if(pageNow==pageNum){
- 		return false;
- 	}
- 	
- 	$("#pagelist a").each(function(){
- 	  //alert(pageNum);
-	  if ($(this).text()==pageNum) {
-		 $(this).addClass("current");
-		 $(this).removeAttr("href");
-		 pageNow=pageNum;
-		 updateUserTable(pageNow);
-		 //alert(pageNow);
-	  }
-	  else {
-		 $(this).removeClass("current");
-		 $(this).attr("href","");
-	  }
-  });
-});
-
-});
-
-
-
-//单个删除
-$(function(){
- $("[id=user_delete]").click(function(){
-	if(confirm("您确定要删除吗?")){
-		var userId = $(this).parent().parent().parent().find("td:eq(0)").text();
-		
-		window.location.href = "userList!DeleteUser.action?userId="
-    	+userId;
-		
+</script>
+<script type="text/javascript">
+//根据json数据更新用户列表users_table
+function rebuildUserTable(jsonData){
+	//alert(jsonData);
+	for(var n=0;n<jsonData.length;n++){
+	 		var ids=jsonData[n].userId;
+	 		alert(ids);
+			//var names=data[n].name;
+			//$("#registeredAddressTown").append("<option id='"+ids+"' value='"+names+"'>"+names+"</option>");
 	}
-});
+}
 
-});
-
-
+</script>
+<script type="text/javascript">
 //全选
 $("#checkall").click(function(){ 
   $("input[name='chk_list']").each(function(){
@@ -260,8 +252,11 @@ $("#checkall").click(function(){
 		  this.checked = true;
 	  }
   });
-})
+});
 
+
+</script>
+<script type="text/javascript">
 //批量删除
 function DelSelect(){
 	var deleteUserList=new Array();
@@ -287,6 +282,7 @@ function DelSelect(){
 	}
 
 }
-</script>
+
+</script> 
 </body>
 </html>

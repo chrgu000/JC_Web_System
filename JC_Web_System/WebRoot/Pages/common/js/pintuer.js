@@ -3,15 +3,17 @@ $(function(){
         if(document.all){
         document.body.style.behavior = 'url(#default#homepage)'; 
         document.body.setHomePage(document.URL); 
-        }else{alert("设置首页失败，请手动设置！");} 
-	});
+        }else
+        {
+        	alert("璁剧疆棣栭〉澶辫触锛岃鎵嬪姩璁剧疆锛�);} 
+        });
 	$(".win-favorite").click(function(){
 		var sURL=document.URL; 
 		var sTitle=document.title; 
 		try {window.external.addFavorite(sURL, sTitle);} 
 		catch(e){ 
 			try{window.sidebar.addPanel(sTitle, sURL, "");} 
-			catch(e){alert("加入收藏失败，请使用Ctrl+D进行添加");} 
+			catch(e){alert("鍔犲叆鏀惰棌澶辫触锛岃浣跨敤Ctrl+D杩涜娣诲姞");} 
 		}
 	});
 	$(".win-forward").click(function(){
@@ -169,7 +171,7 @@ $(function(){
 							var $url=$test[1]+$pintu;							
 							$.ajaxSetup({async:false});
 							$.getJSON($url,function(data){	
-								//alert(data.getdata);							
+								// alert(data.getdata);
 								$getdata=data.getdata;								
 							});
 							if($getdata=="true"){return true;}
@@ -253,7 +255,7 @@ $(function(){
 		detail='<div class="dialog-win" style="position:fixed;width:'+width+';z-index:11;">';
 		if(getid!=null){detail=detail+$(getid).html();}
 		if(data!=null){detail=detail+$.ajax({url:data,async:false}).responseText;}
-		//alert(detail);
+		// alert(detail);
 		detail=detail+'</div>';
 		
 		var win=$(detail);

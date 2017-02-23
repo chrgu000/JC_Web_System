@@ -115,13 +115,14 @@ public class UserAction extends ActionSupport {
 	    	HttpServletRequest request=ServletActionContext.getRequest();
 	        int pageNum = Integer.parseInt(request.getParameter("pageNum"));  
 	        PageBean<SysUsers> pageBean = userService.queryForPage(pageNum);  
-	        System.out.println(jsonManager);
-	        System.out.println(userService);
+//	        System.out.println(jsonManager);
+//	        System.out.println(userService);
 	        String jsonData=jsonManager.Object2Json(pageBean.getList());
 	        System.out.println(jsonData);
 	        
 	        HttpServletResponse response =   ServletActionContext.getResponse();
 	        response.getWriter().write(jsonData);//返回json数据到前台
+	        response.getWriter().flush();
 	    }catch (Exception e){
 	        e.printStackTrace();
 	    }

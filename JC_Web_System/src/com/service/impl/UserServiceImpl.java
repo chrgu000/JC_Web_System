@@ -72,10 +72,7 @@ public class UserServiceImpl implements com.service.IUserService {
 		if(userName!=""){
 			conditionList.put("user_name like", "%"+userName+"%");
 		}
-	
-		PageBean<SysUsers> pb = sysUsersDAO.getUsersPageBean(conditionList,pageCurrent);
-		
+		PageBean<SysUsers> pb = sysUsersDAO.getUsersPageBean(conditionList,pageCurrent);	
 		return pb;
-
 	}
 }

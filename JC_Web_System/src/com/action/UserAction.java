@@ -113,13 +113,9 @@ public class UserAction extends ActionSupport {
 	public void updateUserTable() {
 	    try {
 	    	HttpServletRequest request=ServletActionContext.getRequest();
-	        int pageNum = Integer.parseInt(request.getParameter("pageNum"));  
+	        int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 	        PageBean<SysUsers> pageBean = userService.queryForPage(pageNum);  
-//	        System.out.println(jsonManager);
-//	        System.out.println(userService);
 	        String jsonData=jsonManager.Object2Json(pageBean.getList());
-	        System.out.println(jsonData);
-	        
 	        HttpServletResponse response =   ServletActionContext.getResponse();
 	        response.setContentType("text/plain;charset=UTF-8");//设置返回数据文本编码为utf-8
 	        response.getWriter().write(jsonData);//返回json数据到前台

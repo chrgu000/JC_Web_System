@@ -14,7 +14,7 @@ import com.publicMethos.ISqlUtil;
 
 public class SqlUtilImpl extends HibernateDaoSupport implements ISqlUtil {
 
-	public static final int pageLinesNum = 4;// 每页显示的数据条数
+	public static final int pageLinesNum = 8;// 每页显示的数据条数
 
 	/*
 	 * 执行查询语句，返回唯一值的结果eg:"select min(a.employeeid) from Emplyees a;"

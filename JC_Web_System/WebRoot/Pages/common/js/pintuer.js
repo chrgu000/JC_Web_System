@@ -5,7 +5,7 @@ $(function(){
         document.body.setHomePage(document.URL); 
         }else
         {
-        	alert("璁剧疆棣栭〉澶辫触锛岃鎵嬪姩璁剧疆锛�);} 
+        	alert("-----");} 
         });
 	$(".win-favorite").click(function(){
 		var sURL=document.URL; 

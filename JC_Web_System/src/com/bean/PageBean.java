@@ -8,7 +8,7 @@ public class PageBean<T> {
     private  List<T> list; // 要返回的某一页的记录列表  
   
     private int allRow; // 总记录数  
-    private int totalPage; // 总页数  
+    private int totalPage; // 总页数
     private int currentPage; // 当前页  
     private int pageSize; // 每页记录数  
   

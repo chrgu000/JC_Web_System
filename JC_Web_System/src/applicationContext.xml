@@ -58,7 +58,6 @@
 		<!-- 用户登录的Bean -->
 		<bean id="userAction" class="com.action.UserAction">
 			<property name="userService" ref="userService"></property>
-			<property name="jsonManager" ref="jsonManager"></property>
 		</bean>
 		
 		<bean id="userService" class="com.service.impl.UserServiceImpl">
@@ -78,13 +77,6 @@
 				<ref local="sessionFactory" />
 			</property>
 		</bean>
-		
-		<!-- 注入json管理类 -->
-		<bean id="jsonManager" class="com.publicMethos.impl.JsonManagerImpl" >
-		</bean>
-		
-
-		
 		
 		<!-- 用户管理的Bean -->
 		 <!-- <bean id="userListAction" class="com.action.UserListAction">

@@ -66,13 +66,18 @@ public class UserServiceImpl implements com.service.IUserService {
 		String userName=(String) 
 				(request.getSession().getAttribute("userName")
 						==null?"":request.getSession().getAttribute("userName"));
+		if(pageCurrent<=0){
+			pageCurrent=1;
+		}
 		if(userType!=-1){
 			conditionList.put("user_type=", userType+"");
 		}
 		if(userName!=""){
-			conditionList.put("user_name like", "%"+userName+"%");
+			conditionList.put("user_name like", " '%"+userName+"%'");
 		}
+		
 		PageBean<SysUsers> pb = sysUsersDAO.getUsersPageBean(conditionList,pageCurrent);	
+		//System.out.println("service中pageBean:总页数"+pb.getTotalPage()+";当前页："+pb.getCurrentPage()+";总记录数:"+pb.getAllRow());
 		return pb;
 	}
 }

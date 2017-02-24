@@ -56,7 +56,7 @@ $(document).ready(function(){
 			<div class="panel-head">
 				<strong class="icon-reorder"> <a
 					href="user!updateUserPage.action">刷新用户列表</a> </strong>
-			</div>
+			</div> 
 			<div class="padding border-bottom">
 				<ul class="search" style="padding-left:10px;">
 					<li style="float:left;"><a

@@ -92,9 +92,10 @@ $(function(){
 					class="icon-caret-right"></span>关闭系统</a></li>
 		</ul>
 		 <%} %>
+		 
 	</div>
-	<div >隐藏树控件按钮</div>
-	<ul class="bread">
+	<div class="leftnav-hideBtn"><!-- 隐藏树控件按钮 --></div>
+	<%-- <ul class="bread">
 		<li>
 		<%if(currentUser.getUserType()==0){ %>
 		<a href="Pages/user_List.jsp" target="right" class="icon-home"> 
@@ -104,7 +105,7 @@ $(function(){
 		回到首页</a>
 		<%} %>
 		</li>
-	</ul>
+	</ul> --%>
 	<div class="admin">
 	<%if(currentUser.getUserType()==0){ %>
 		<iframe scrolling="auto" style="height:99%;" rameborder="0" src="Pages/user_List.jsp" name="right"

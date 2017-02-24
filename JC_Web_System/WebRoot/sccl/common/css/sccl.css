@@ -541,9 +541,7 @@ menu .menu-item.active>.menu-item-child {
 	-o-transform: rotate(90deg); /* Opera */
 }
 
-/* 菜单
-
-收缩展开样式 */
+/* 菜单收缩展开样式 */
 .layout-side-arrow {
 	position: absolute;
 	display: block;
@@ -577,9 +575,7 @@ side-arrow i {
 	transform: rotate(180deg);
 }
 
-/* 点击菜单收缩后变更的样式 
-
-*/
+/* 点击菜单收缩后变更的样式 */
 .layout-side.close {
 	left: -200px;
 }

@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="Pages/common/css/pintuer.css">
     <link rel="stylesheet" href="Pages/common/css/admin.css">
     <script src="Pages/common/js/jquery.js"></script>
-    <script src="Pages/common/js/pintuer.js"></script>  
+   
 	<script type="text/javascript">
 	function doLogin(){
 		//alert("11111111111");

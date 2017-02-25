@@ -15,9 +15,7 @@ body {
 	text-rendering: geometricPrecision;
 }
 
-a:active,a:hover {
-	outline: 0
-}
+a:active,a:hover {outline: 0;}
 
 img {
 	display: inline-block;
@@ -25,9 +23,7 @@ img {
 	vertical- align: middle;
 }
 
-li {
-	list-style: none;
-}
+li {list-style: none;}
 
 table {
 	border-collapse: collapse;
@@ -159,18 +155,14 @@ pre {
 	margin-right: 10px;
 }
 
-.header-bar li {
-	float: left;
-}
+.header-bar li {float: left;}
 
 .header-bar li a {
 	margin: 0 10px;
 	color: #fff;
 }
 
-.header-bar li a i {
-	font-size: 14px;
-}
+.header-bar li a i {font-size: 14px;}
 
 .header-bar-nav .header-dropdown-menu {
 	position: absolute;
@@ -210,19 +202,16 @@ pre {
 	display: block;
 }
 
-.header-bar-nav.open 
-.header-dropdown-menu.right {
+.header-bar-nav.open .header-dropdown-menu.right {
 	right: 10px !important;
 	left: auto !important
 }
 
-.header-bar-nav:hover,.header-
-bar-nav:focus {
+.header-bar-nav:hover,.header-bar-nav:focus {
 	background-color: rgba(255, 255, 255, 0.3)
 }
 
-.header-bar-nav .header-dropdown-menu li 
-a:hover,.header-bar-nav .header-dropdown-menu li a:focus {
+.header-bar-nav .header-dropdown-menu li a:hover,.header-bar-nav .header-dropdown-menu li a:focus {
 	background-color: #fafafa
 }
 
@@ -251,9 +240,7 @@ a:hover,.header-bar-nav .header-dropdown-menu li a:focus {
 	font-size: 14px;
 }
 
-.side-menu 
-
-.menu-item {
+.side-menu .menu-item {
 	position: relative;
 	margin: 0;
 	padding: 0;
@@ -267,13 +254,9 @@ a:hover,.header-bar-nav .header-dropdown-menu li a:focus {
 	border-bottom: 1px solid #393D49;
 }
 
-.side-menu .menu-item a span {
-	margin-left: 8px;
-}
+.side-menu .menu-item a span {margin-left: 8px;}
 
-.side-menu .menu-item:hover>a,.side-menu 
-
-.menu-item.active>a {
+.side-menu .menu-item:hover>a,.side-menu .menu-item.active>a {
 	color: #fff;
 	background: #4E5465;
 	border-left-color: #33AECC;
@@ -290,9 +273,7 @@ a:hover,.header-bar-nav .header-dropdown-menu li a:focus {
 	border-bottom: 1px solid #2b2e37;
 }
 
-.side-menu 
-
-.menu-item a .icon-right {
+.side-menu .menu-item a .icon-right {
 	width: auto;
 	height: auto;
 	padding: 0;
@@ -317,9 +298,7 @@ a:hover,.header-bar-nav .header-dropdown-menu li a:focus {
 	float: right !important;
 }
 
-.side-
-
-menu .menu-item.active>.menu-item-child {
+.side-menu .menu-item.active>.menu-item-child {
 	display: block;
 }
 
@@ -341,8 +320,7 @@ menu .menu-item.active>.menu-item-child {
 	margin-left: 10px;
 }
 
-.side-menu .menu-item-child li.active>a,.side-menu .menu-item-child li>a:hover
-	{
+.side-menu .menu-item-child li.active>a,.side-menu .menu-item-child li>a:hover{
 	color: #fff;
 }
 
@@ -373,9 +351,7 @@ menu .menu-item.active>.menu-item-child {
 	border-bottom-right-radius: 3px;
 }
 
-.layout-
-
-side-arrow i {
+.layout-side-arrow i {
 	font-size: 10px;
 	color: #fff;
 	margin-left: -1px;
@@ -395,17 +371,11 @@ side-arrow i {
 	left: -200px;
 }
 
-.layout-side-arrow.close {
-	left: 0px;
-}
+.layout-side-arrow.close {left: 0px;}
 
-.layout-main.full-page {
-	left: 0px;
-}
+.layout-main.full-page {left: 0px;}
 
-.layout-footer.full-page {
-	left: 0px;
-}
+.layout-footer.full-page {left: 0px;}
 /* 点击菜单收缩后变更的样式 */
 
 /*菜单选项卡*/
@@ -423,9 +393,7 @@ side-arrow i {
 	cursor: pointer;
 }
 
-.tab-btn i {
-	font-size: 20px;
-}
+.tab-btn i {font-size: 20px;}
 
 .tab-btn.btn-left {
 	left: 0;
@@ -459,9 +427,7 @@ side-arrow i {
 	float: left;
 }
 
-.tab-nav-content a:hover {
-	color: #333;
-}
+.tab-nav-content a:hover {color: #333;}
 
 .tab-nav-content a.active {
 	color: #33AECC;
@@ -474,13 +440,9 @@ side-arrow i {
 	vertical- align: top;
 }
 
-.tab-nav-content a i:hover {
-	color: #FF5722;
-}
+.tab-nav-content a i:hover {color: #FF5722;}
 
-.tab-nav-content a.active i:hover {
-	color: #FF5722;
-}
+.tab-nav-content a.active i:hover {color: #FF5722;}
 
 .tab-nav-content .content-tab {
 	transition: all .3s ease-out 0s;
@@ -489,32 +451,25 @@ side-arrow i {
 /*菜单选项卡*/
 
 /** 动画 **/
-@
--webkit-keyframes icon-rotate { /* 旋转360 */
+@-webkit-keyframes icon-rotate { /* 旋转360 */
 	from {-webkit-transform: rotate(0deg);
 }
 
-to {
-	-webkit-transform: rotate(360deg);
+to {-webkit-transform: rotate(360deg);}
 }
 
-}
-@
-keyframes icon-rotate {
+@keyframes icon-rotate {
 	from {transform: rotate(0deg);
 }
 
-to {
-	transform: rotate(360deg);
-}
-
+to {transform: rotate(360deg);}
 }
 .icon-anim-rotate {
 	-webkit-animation-name: icon- rotate;
 	animation-name: icon-rotate;
 	-webkit-animation-duration: 1s;
-	animation-duration: 1s; -
-	webkit-animation-timing-function: linear;
+	animation-duration: 1s; 
+	-webkit-animation-timing-function: linear;
 	animation-timing-function: linear;
 }
 /** 动画 **/
@@ -524,9 +479,7 @@ to {
 	.layout-header .header-bar .header-bar-role {
 		display: none;
 	}
-	.layout-
-
-header .header-bar .header-bar-nav:last-child {
+	.layout-header .header-bar .header-bar-nav:last-child {
 		display: none;
 	}
 	.header-menu-btn {

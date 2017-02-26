@@ -36,7 +36,7 @@ public class UserAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		//user.action调用的方法
-		return "";
+		return "LoginSuccess";
 
 	}
 
@@ -59,9 +59,9 @@ public class UserAction extends ActionSupport {
 			request.getSession().removeAttribute("userName");
 			request.getSession().setAttribute("pageBean", pageBean);
 			request.getSession().setAttribute("currentUser", user);
-			return "LoginSuccess";
+			return "success";
 		} else {
-			return "LoginFail";
+			return "fail";
 		}
 	}
 		

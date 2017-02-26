@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -15,16 +15,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="../demo.css">
-	<script type="text/javascript" src="../../jquery.min.js"></script>
-	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>Pages/common/themes/material/easyui.css">
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>Pages/common/themes/icon.css">
+	<script type="text/javascript" src="<%=basePath%>Pages/common/js/jquery.min.js"></script>
+	<script type="text/javascript" charset="gbk" src="<%=basePath%>Pages/common/js/jquery.easyui.min.js"></script>
+	<script type="text/javascript"><%--
+	$("#test").click(function () {
+		alert(255455);
+		//$("#test").val("dddddddd");
+    });
 	
-
+	--%></script>
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <div>
+			<input id="test" type="button" onclick="alert(55555)" value="测试"/>
+		</div>
   </body>
 </html>

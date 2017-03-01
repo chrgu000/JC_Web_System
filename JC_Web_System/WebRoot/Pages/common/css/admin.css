@@ -66,8 +66,9 @@
 
 .leftnav ul li a {
 	display: block;
-	padding-left: 25px;
+	padding-left: 10px;
 	line-height: 25px;
+	font-size: 14px;
 }
 
 .leftnav ul li span {

@@ -37,22 +37,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</div>
 	<div data-options="iconCls:'icon-help',region:'west',title:'系统选项'"
-		style="width:150px;padding:0px;background:#F2F2F2;">
+		style="width:130px;background:#F2F2F2;">
 		<div class="easyui-accordion" style="height:280px;">
-			<div title="案卷管理" data-options="iconCls:'icon-edit'"
-				style="overflow:auto;padding:0px;">
-				<ul style="display:block">
-					<li><a href="Pages/file_List.jsp" target="right"><span
-							class="icon-caret-right"></span>案卷列表</a></li>
-					<li><a href="Pages/file_AddEdit.jsp" target="right"><span
-							class="icon-caret-right"></span>新建案卷</a></li>
-				</ul>
+			<div title="案卷管理" data-options="iconCls:'icon-lock'" >
+					<a href="/" target="right" 
+						class="easyui-linkbutton" plain="true" iconCls="icon-help">
+						案卷列表</a>
+					
+					<a href="/" target="right"
+						class="easyui-linkbutton" iconCls="icon-help">新建案卷</a>
 			</div>
 			<div title="用户管理" data-options="iconCls:'icon-man'"
 				style="padding:0px;">
 				<ul style="display:block">
-					<li><a href="Pages/user_List.jsp" target="right"><span
-							class="icon-caret-right"></span>用户列表</a></li>
+					<li ><a href="Pages/user_List.jsp" target="right">用户列表</a></li>
 					<li><a href="Pages/error.jsp" target="right"><span
 							class="icon-caret-right"></span>权限分配</a>
 					</li>

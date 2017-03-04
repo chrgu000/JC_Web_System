@@ -25,3 +25,13 @@
 	2、语言切换中、英
 	3、内容管理表格有添加内容、关键字搜索、复选框、修改、删除、批量删除、上页下页尾页功能。
 	
+	
+	
+	$('#dg').datagrid('getPager').pagination({
+	    displayMsg:'当前显示从{from}到{to}共{total}记录',
+	    onBeforeRefresh:function(pageNumber, pageSize){
+	     $(this).pagination('loading');
+	     alert('pageNumber:'+pageNumber+',pageSize:'+pageSize);
+	     $(this).pagination('loaded');
+	    },
+	   });

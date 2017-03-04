@@ -26,11 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	function doLogin(){
 		if($("#loginForm").form("validate")){
-			alert(333);
+			
 			var username=$("input#username").val();
 			
 			var password=$("input#password").val();
-			alert(username+"信息输入有误！"+password);
+			
 			window.location.href = "sysUser!login.action?username="
 	    		+username+"&password="+password;
 		} else{

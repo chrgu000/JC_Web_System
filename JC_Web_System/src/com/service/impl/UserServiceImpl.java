@@ -54,6 +54,11 @@ public class UserServiceImpl implements com.service.IUserService {
 		}
 		return null;
 	}
+	
+	public List<SysUsers> getAllUsers(){
+		List<SysUsers> list =sysUsersDAO.getAll();
+		return list;
+	}
 
 	public PageBean<SysUsers> queryForPage(int pageCurrent) {
 		HashMap<String, String> conditionList=new HashMap<String, String>();

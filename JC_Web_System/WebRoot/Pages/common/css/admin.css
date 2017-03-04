@@ -1,80 +1,23 @@
 @CHARSET "UTF-8";
 
-.leftnav {
-	width: 125px;
-	height: 100%;
+
+
+#topNav{
+	height:60px;
+	background:#BFEFFF;
 }
 
-.leftnav-hideBtn {
-	z-index: 0;
-	float: right;
-	position: relative;
-	width: 10px;
-	height: 10px;
-	background: gray;
+#SysOption{
+	width:155px;
+	background:#F2F2F2;
 }
 
-.leftnav-title {
-	height: 40px;
-	background: url(../images/bg.jpg) no-repeat 0 -1000px;
-	color: #FFF;
-	padding-left: 15px;
-	font-size: 14px;
-	line-height: 50px;
+.manageTitle a{
+	width:99%;
 }
 
-.leftnav-title span {
-	margin-right: 10px;
+.manageTitle a:hover{
+	background: #B2DFEE;
 }
 
-.leftnav h2 {
-	padding: 10px 0 10px 5px;
-	transition: all .1s ease-in-out;
-	display: block;
-	cursor: pointer;
-	font-weight: bold;
-	font-size: 14px;
-	border-top: 1px solid #b5cfd9;
-}
-
-.leftnav h2.on {
-	color: #09c;
-}
-
-.leftnav .border-bottom {
-	border-bottom: 1px solid #b5cfd9;
-}
-
-.leftnav h2 span {
-	margin-right: 1px;
-}
-
-.leftnav h2:hover {
-	color: #09c;
-}
-
-.leftnav ul {
-	display: none;
-	border-top: 1px solid #b5cfd9;
-	padding: 5px 0;
-	opacity: 1;
-}
-
-.leftnav ul li {
-	list-style-type: none;
-}
-
-.leftnav ul li a {
-	display: block;
-	padding-left: 10px;
-	line-height: 25px;
-	font-size: 14px;
-}
-
-.leftnav ul li span {
-	margin-right: 8px;
-}
-
-.leftnav ul li a:hover,.leftnav ul li a.on {
-	color: #09c;
-}
+.hr0{ height:1px;width:80%;border:none;border-top:1px dashed #1E90FF;}  

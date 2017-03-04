@@ -1,8 +1,11 @@
 package com.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
@@ -87,10 +90,39 @@ public class UserAction extends ActionSupport {
 	        response.getWriter().write(jsonData);//返回json数据到前台
 	        System.out.println(jsonData);
 	        response.getWriter().flush();
+	        
 	    }catch (Exception e){
 	        e.printStackTrace();
 	    }
 	    
 	}
 	
+	
+	
+	/**作用：局部刷新用户页面表格，根据传入页码和条件参数
+	 * 返回值：
+	 * 创建时间：5:50:37 PM  创建者：wulm
+	 */
+	public void updateUserList() {
+	    try {
+	        List<SysUsers> list = userService.getAllUsers();
+	        PageBean buff=new PageBean();
+	        buff.setList(list);
+	        buff.setAllRow(list.size());
+			JSONArray jsonList = JSONArray.fromObject(buff);//用户列表
+			String jsonStr=jsonList.toString();
+			jsonStr=jsonStr.replaceAll("list", "rows");
+			jsonStr=jsonStr.replaceAll("allRow", "total");
+			jsonStr=jsonStr.substring(1,jsonStr.length()-1);
+	        HttpServletResponse response =   ServletActionContext.getResponse();
+	        response.setContentType("text/plain;charset=UTF-8");//设置返回数据文本编码为utf-8
+	        response.getWriter().write(jsonStr);//返回json数据到前台
+	        System.out.println(jsonStr);
+	        response.getWriter().flush();
+	        
+	    }catch (Exception e){
+	        e.printStackTrace();
+	    }
+	    
+	}
 }

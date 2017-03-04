@@ -9,6 +9,12 @@ import com.bean.SysUsers;
 public interface ISysUsersDAO {
 
 	/**
+     * 获取所有用户
+     * @param
+     */ 
+	public List<SysUsers> getAll();
+	
+	/**
      * 根据id查找用户
      * @param id 需要查找的用户id
      */  

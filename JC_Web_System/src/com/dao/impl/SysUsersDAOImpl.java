@@ -26,6 +26,10 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		getHibernateTemplate().delete(getHibernateTemplate().get(SysUsers.class , id));
 	}
 
+	public List<SysUsers> getAll() {
+		return getHibernateTemplate().find("from com.bean.SysUsers");
+	}
+	
 	public SysUsers get(Integer id) {
 		return getHibernateTemplate().get(SysUsers.class , id);
 	}

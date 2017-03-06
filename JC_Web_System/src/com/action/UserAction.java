@@ -68,6 +68,11 @@ public class UserAction extends ActionSupport {
 		}
 	}
 		
+	public String goToeditUser(int userId){
+		
+		return "editUser";
+	}
+	
 	
 	/**作用：局部刷新用户页面表格，根据传入页码和条件参数
 	 * 返回值：
